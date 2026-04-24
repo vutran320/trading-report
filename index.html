@@ -11,20 +11,10 @@
     h1 { font-size: 2rem; color: #e8e8e8; margin-bottom: 8px; }
     .subtitle { color: #888; font-size: 0.95rem; }
     .reports { display: grid; gap: 12px; margin-top: 24px; }
-    .report-item { background: #141414; border: 1px solid #2a2a2a; border-radius: 6px; padding: 16px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; position: relative; }
+    .report-item { background: #141414; border: 1px solid #2a2a2a; border-radius: 6px; padding: 16px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; }
     .report-item:hover { background: #1a1a1a; border-color: #444; }
     .report-date { font-weight: 600; color: #7cb9f0; font-size: 1.1rem; }
     .report-time { color: #888; font-size: 0.9rem; }
-    .lock-badge { display: inline-flex; align-items: center; gap: 6px; background: #2a1000; color: #ff9800; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
-    .lock-badge::before { content: '🔒'; }
-    .auth-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
-    .auth-modal.active { display: flex; }
-    .auth-box { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 32px; max-width: 400px; width: 90%; }
-    .auth-box h2 { color: #e8e8e8; margin-bottom: 16px; text-align: center; }
-    .auth-box input { width: 100%; padding: 10px 12px; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 4px; color: #d0d0d0; font-size: 1rem; margin-bottom: 16px; }
-    .auth-box button { width: 100%; padding: 10px 12px; background: #7cb9f0; color: #000; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
-    .auth-box button:hover { background: #99ccff; }
-    .error { color: #ff6b6b; font-size: 0.9rem; margin-top: -12px; margin-bottom: 12px; }
   </style>
 </head>
 <body>
@@ -35,72 +25,28 @@
 
   <div class="reports" id="reports"></div>
 
-  <div class="auth-modal" id="authModal">
-    <div class="auth-box">
-      <h2>🔒 Portfolio Access</h2>
-      <div class="error" id="error"></div>
-      <input type="password" id="password" placeholder="Enter password" />
-      <button onclick="authenticate()">Unlock</button>
-    </div>
-  </div>
-
   <script>
-    const PASSWORD_HASH = 'e807f1fcf82d132f9bb018ca6738a19f'; // MD5 hash of your password
     const reports = [
       { date: '2026-04-24', time: '09:53', folder: '20260424_0953' },
       { date: '2026-04-23', time: '10:30', folder: '20260423_1030' }
     ];
 
-    function md5(str) {
-      return [...new Uint8Array(crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)))].map(x => x.toString(16).padStart(2, '0')).join('').substring(0, 32);
-    }
+    const container = document.getElementById('reports');
+    reports.sort((a, b) => new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`));
 
-    function authenticate() {
-      const pwd = document.getElementById('password').value;
-      sessionStorage.setItem('auth', pwd);
-      checkAuth();
-    }
-
-    function checkAuth() {
-      const pwd = sessionStorage.getItem('auth');
-      const container = document.getElementById('reports');
-      const modal = document.getElementById('authModal');
-
-      reports.sort((a, b) => new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`));
-
-      reports.forEach(report => {
-        const link = document.createElement('a');
-        link.href = `./${report.folder}/stock_analysis_${report.folder.substring(0, 8)}.html`;
-        link.className = 'report-item';
-        link.innerHTML = `
-          <div>
-            <div class="report-date">${report.date}</div>
-            <div class="report-time">${report.time}</div>
-          </div>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <span class="lock-badge">Portfolio Protected</span>
-            <div style="color: #666;">→</div>
-          </div>
-        `;
-        link.onclick = (e) => {
-          if (!pwd) {
-            e.preventDefault();
-            modal.classList.add('active');
-          }
-        };
-        container.appendChild(link);
-      });
-
-      if (!pwd) {
-        modal.classList.add('active');
-      }
-    }
-
-    document.getElementById('password').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') authenticate();
+    reports.forEach(report => {
+      const link = document.createElement('a');
+      link.href = `./${report.folder}/stock_analysis_${report.folder.substring(0, 8)}.html`;
+      link.className = 'report-item';
+      link.innerHTML = `
+        <div>
+          <div class="report-date">${report.date}</div>
+          <div class="report-time">${report.time}</div>
+        </div>
+        <div style="color: #666;">→</div>
+      `;
+      container.appendChild(link);
     });
-
-    checkAuth();
   </script>
 </body>
 </html>

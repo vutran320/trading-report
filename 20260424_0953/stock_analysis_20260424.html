@@ -41,6 +41,16 @@
     .back-to-top { display: inline-flex; align-items: center; gap: 5px; margin: 6px 0 14px; padding: 4px 12px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; color: #777; font-size: 0.78rem; text-decoration: none; }
     .back-to-top:hover { color: #aaa; border-color: #444; }
     footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #1e1e1e; color: #555; font-size: 0.8rem; text-align: center; }
+    .portfolio-assessment.locked { position: relative; filter: blur(5px); pointer-events: none; }
+    .portfolio-assessment.locked::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 10; }
+    .lock-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
+    .lock-overlay.active { display: flex; }
+    .lock-box { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 32px; max-width: 400px; width: 90%; }
+    .lock-box h2 { color: #e8e8e8; margin-bottom: 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .lock-box input { width: 100%; padding: 10px 12px; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 4px; color: #d0d0d0; font-size: 1rem; margin-bottom: 16px; }
+    .lock-box button { width: 100%; padding: 10px 12px; background: #7cb9f0; color: #000; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+    .lock-box button:hover { background: #99ccff; }
+    .lock-error { color: #ff6b6b; font-size: 0.9rem; margin-top: -12px; margin-bottom: 12px; min-height: 20px; }
     .portfolio-assessment h2 { font-size: 1.4rem; margin-bottom: 16px; }
     .port-summary { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
     .port-stat { background: #141414; border: 1px solid #2a2a2a; border-radius: 6px; padding: 10px 16px; min-width: 120px; }
@@ -498,6 +508,40 @@
 </section>
 <hr />
 
+<div class="lock-overlay" id="lockOverlay">
+  <div class="lock-box">
+    <h2>🔒 Portfolio Access</h2>
+    <div class="lock-error" id="lockError"></div>
+    <input type="password" id="lockPassword" placeholder="Enter password" />
+    <button onclick="unlockPortfolio()">Unlock</button>
+  </div>
+</div>
+
 <footer>Stock Analysis Report &mdash; April 24, 2026 &mdash; 09:53 &mdash; AI-generated. Not financial advice.</footer>
+<script>
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  async function unlockPortfolio() {
+    const pwd = document.getElementById('lockPassword').value;
+    const hash = await sha256(pwd);
+    if (hash === '2597632105456d5d4057bdd50afb979bb770f730ea4532796680ace80e302d04') {
+      sessionStorage.setItem('portfolioAuth', 'true');
+      document.getElementById('lockOverlay').classList.remove('active');
+      document.querySelector('.portfolio-assessment').classList.remove('locked');
+    } else {
+      document.getElementById('lockError').textContent = 'Incorrect password';
+      document.getElementById('lockPassword').value = '';
+    }
+  }
+  document.getElementById('lockPassword').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') unlockPortfolio();
+  });
+  if (!sessionStorage.getItem('portfolioAuth')) {
+    document.querySelector('.portfolio-assessment').classList.add('locked');
+    document.getElementById('lockOverlay').classList.add('active');
+  }
+</script>
 </body>
 </html>
