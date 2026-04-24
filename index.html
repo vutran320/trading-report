@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading Reports</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0e0e0e; color: #d0d0d0; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: 0 auto; }
+    header { margin-bottom: 32px; border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; }
+    h1 { font-size: 2rem; color: #e8e8e8; margin-bottom: 8px; }
+    .subtitle { color: #888; font-size: 0.95rem; }
+    .reports { display: grid; gap: 12px; margin-top: 24px; }
+    .report-item { background: #141414; border: 1px solid #2a2a2a; border-radius: 6px; padding: 16px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; }
+    .report-item:hover { background: #1a1a1a; border-color: #444; }
+    .report-date { font-weight: 600; color: #7cb9f0; font-size: 1.1rem; }
+    .report-time { color: #888; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Trading Reports</h1>
+    <p class="subtitle">Stock analysis reports generated from TradingView charts</p>
+  </header>
+
+  <div class="reports" id="reports"></div>
+
+  <script>
+    // List of report folders (update manually or fetch dynamically)
+    const reports = [
+      { date: '2026-04-24', time: '09:53', folder: '20260424_0953' },
+      { date: '2026-04-23', time: '10:30', folder: '20260423_1030' }
+    ];
+
+    const container = document.getElementById('reports');
+    reports.sort((a, b) => new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`));
+
+    reports.forEach(report => {
+      const link = document.createElement('a');
+      link.href = `./${report.folder}/stock_analysis_${report.folder.substring(0, 8)}.html`;
+      link.className = 'report-item';
+      link.innerHTML = `
+        <div>
+          <div class="report-date">${report.date}</div>
+          <div class="report-time">${report.time}</div>
+        </div>
+        <div style="color: #666;">→</div>
+      `;
+      container.appendChild(link);
+    });
+  </script>
+</body>
+</html>
