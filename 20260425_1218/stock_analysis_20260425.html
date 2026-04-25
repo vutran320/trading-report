@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stock Analysis — April 25, 2026 12:18</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0e0e0e; color: #d0d0d0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 24px; max-width: 1100px; margin: 0 auto; }
+    header { border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; margin-bottom: 32px; }
+    header h1 { font-size: 1.8rem; color: #e8e8e8; margin-bottom: 6px; }
+    .meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+    .meta span { background: #1a1a1a; border: 1px solid #2a2a2a; padding: 3px 10px; border-radius: 4px; font-size: 0.82rem; color: #aaa; }
+    .note { margin-top: 10px; font-size: 0.82rem; color: #666; font-style: italic; }
+    h2 { font-size: 1.25rem; color: #e8e8e8; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    h3 { font-size: 0.95rem; color: #bbb; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+    hr { border: none; border-top: 1px solid #1e1e1e; margin: 32px 0; }
+    .ticker { color: #7cb9f0; font-weight: 700; font-size: 1.3rem; }
+    .company { color: #aaa; font-weight: 400; font-size: 1rem; }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tag-watch { background: #003020; color: #66bb6a; border: 1px solid #1a5c30; }
+    .tag-wait  { background: #2a1d00; color: #f0c040; border: 1px solid #5a3d00; }
+    .tag-risky { background: #2a1000; color: #ff9800; border: 1px solid #6b2800; }
+    .tag-avoid { background: #2a0000; color: #ff6b6b; border: 1px solid #6b0000; }
+    .action-watch { color: #66bb6a; font-weight: 600; }
+    .action-wait  { color: #f0c040; font-weight: 600; }
+    .action-risky { color: #ff9800; font-weight: 600; }
+    .action-avoid { color: #ff6b6b; font-weight: 600; }
+    .chart-img { display: block; width: 100%; max-width: 900px; border-radius: 6px; border: 1px solid #2a2a2a; margin: 12px 0; }
+    ul { list-style: disc; padding-left: 20px; }
+    ul li { margin-bottom: 4px; color: #c0c0c0; }
+    .entry-zone { color: #7cb9f0; font-weight: 600; }
+    .assessment { background: #141414; border: 1px solid #2a2a2a; border-left: 3px solid #444; border-radius: 6px; padding: 14px 16px; margin-top: 14px; }
+    .assessment h3 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th { background: #1a1a1a; color: #aaa; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a2a; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em; }
+    td { padding: 9px 12px; border-bottom: 1px solid #1e1e1e; color: #c8c8c8; }
+    tr:hover td { background: #161616; }
+    td.entry-zone { color: #7cb9f0; }
+    .ticker-link { color: #7cb9f0; font-weight: 600; text-decoration: none; }
+    .ticker-link:hover { text-decoration: underline; }
+    .back-to-top { display: inline-flex; align-items: center; gap: 5px; margin: 6px 0 14px; padding: 4px 12px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; color: #777; font-size: 0.78rem; text-decoration: none; }
+    .back-to-top:hover { color: #aaa; border-color: #444; }
+    .port-summary { display: none; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .port-summary.unlocked { display: flex; }
+    .qty-cell { color: #555; font-style: italic; }
+    .qty-cell.unlocked { color: #c8c8c8; font-style: normal; }
+    .alloc-cell { color: #555; font-style: italic; }
+    .alloc-cell.unlocked { color: #888; font-style: normal; font-size: 0.85rem; }
+    .lock-inline { background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #555; padding: 0 4px; line-height: 1; vertical-align: middle; }
+    .lock-inline:hover { color: #aaa; }
+    .lock-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .lock-modal-overlay.active { display: flex; }
+    .lock-box { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 32px; max-width: 360px; width: 90%; }
+    .lock-box h2 { color: #e8e8e8; margin-bottom: 16px; text-align: center; font-size: 1.1rem; }
+    .lock-box input { width: 100%; padding: 10px 12px; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 4px; color: #d0d0d0; font-size: 1rem; margin-bottom: 16px; }
+    .lock-box button { width: 100%; padding: 10px 12px; background: #7cb9f0; color: #000; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+    .lock-box button:hover { background: #99ccff; }
+    .lock-error { color: #ff6b6b; font-size: 0.9rem; margin-top: -12px; margin-bottom: 12px; min-height: 20px; }
+    .port-stat { background: #141414; border: 1px solid #2a2a2a; border-radius: 6px; padding: 10px 16px; min-width: 120px; }
+    .stat-label { display: block; font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .stat-value { display: block; font-size: 1.1rem; color: #e8e8e8; font-weight: 600; }
+    .port-notes { margin-top: 20px; }
+    .port-notes h3 { margin-top: 14px; }
+    .rec-add    { color: #66bb6a; font-weight: 600; }
+    .rec-hold   { color: #f0c040; font-weight: 600; }
+    .rec-reduce { color: #ff9800; font-weight: 600; }
+    .rec-exit   { color: #ff6b6b; font-weight: 600; }
+    .portfolio-assessment { margin-bottom: 0; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #1e1e1e; color: #555; font-size: 0.8rem; text-align: center; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Stock Analysis Report</h1>
+  <div class="meta">
+    <span>Date: April 25, 2026</span>
+    <span>Time: 12:18</span>
+    <span>Timeframe: 1D</span>
+    <span>Tickers: AMD, AMZN, BE, DGRO, GLD, GOOG, HIMS, IREN, LLY, NVDA, RGTI, SLV, SOFI, STX, TSLA, VEA, VWO, VXUS, WLTH</span>
+  </div>
+  <p class="note">Analysis uses oscillators, Buy/Sell signal dots, and trendlines. Horizontal price lines and colored zones are excluded. Not financial advice.</p>
+</header>
+
+<div class="lock-modal-overlay" id="lockOverlay">
+  <div class="lock-box">
+    <h2>&#x1F512; Portfolio Access</h2>
+    <div class="lock-error" id="lockError"></div>
+    <input type="password" id="lockPassword" placeholder="Enter password" />
+    <button onclick="unlockPortfolio()">Unlock</button>
+  </div>
+</div>
+<section class="portfolio-assessment">
+  <h2>Portfolio Assessment <button class="lock-inline" id="lockToggle" title="Unlock Qty" onclick="openLockModal()">&#x1F512;</button></h2>
+  <div class="port-summary">
+    <div class="port-stat"><span class="stat-label">Balance</span><span class="stat-value">$390,988</span></div>
+    <div class="port-stat"><span class="stat-label">Cash</span><span class="stat-value">$217,916</span></div>
+    <div class="port-stat"><span class="stat-label">Cash %</span><span class="stat-value">55.7%</span></div>
+    <div class="port-stat"><span class="stat-label">Invested</span><span class="stat-value">$173,072</span></div>
+    <div class="port-stat"><span class="stat-label">Positions</span><span class="stat-value">14</span></div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Ticker</th><th>Qty</th><th>% Alloc</th><th>Chart Rating</th><th>Entry Zone</th><th>Action</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="ticker-link" href="#section-DGRO">DGRO</a></td>
+        <td class="qty-cell" data-qty="97">***</td>
+        <td class="alloc-cell" data-alloc="1.81%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$70–$73</td>
+        <td class="rec-add">Buy / Add on dips</td>
+        <td>Steady dividend growth ETF; fresh Buy signal confirmed</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GOOG">GOOG</a></td>
+        <td class="qty-cell" data-qty="50">***</td>
+        <td class="alloc-cell" data-alloc="4.38%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$330–$345</td>
+        <td class="rec-add">Buy / Add near support</td>
+        <td>Deep correction with oscillator early in recovery; AI/Cloud thesis intact</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-NVDA">NVDA</a></td>
+        <td class="qty-cell" data-qty="25">***</td>
+        <td class="alloc-cell" data-alloc="1.33%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$195–$210</td>
+        <td class="rec-add">Buy / Add near support</td>
+        <td>Long-term trendline bounce confirmed; Blackwell ramp ongoing</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SOFI">SOFI</a></td>
+        <td class="qty-cell" data-qty="350">***</td>
+        <td class="alloc-cell" data-alloc="1.65%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$17–$19</td>
+        <td class="rec-add">Buy near trendline support</td>
+        <td>Trendline bounce with Buy signal; retesting $20 breakout zone</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VEA">VEA</a></td>
+        <td class="qty-cell" data-qty="148">***</td>
+        <td class="alloc-cell" data-alloc="2.58%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$65–$68</td>
+        <td class="rec-add">Buy / Add on dips</td>
+        <td>Developed market diversification; USD weakness tailwind</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VWO">VWO</a></td>
+        <td class="qty-cell" data-qty="700">***</td>
+        <td class="alloc-cell" data-alloc="10.57%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$56–$59</td>
+        <td class="rec-add">Buy / Add on dips</td>
+        <td>Largest position (~24% of invested); near 25% concentration threshold — monitor</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VXUS">VXUS</a></td>
+        <td class="qty-cell" data-qty="150">***</td>
+        <td class="alloc-cell" data-alloc="3.16%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$79–$83</td>
+        <td class="rec-add">Buy / Add on dips</td>
+        <td>Broad international ETF; partial overlap with VEA + VWO holdings</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMZN">AMZN</a></td>
+        <td class="qty-cell" data-qty="0">***</td>
+        <td class="alloc-cell" data-alloc="0.00%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$250–$265</td>
+        <td class="rec-add">Buy / Add near trendline</td>
+        <td>Watchlist — no position held; AWS + advertising growth compelling</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-HIMS">HIMS</a></td>
+        <td class="qty-cell" data-qty="0">***</td>
+        <td class="alloc-cell" data-alloc="0.00%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$26–$30</td>
+        <td class="rec-add">Buy on dips toward trendline</td>
+        <td>Watchlist — no position held; high volatility; regulatory risk on GLP-1</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-LLY">LLY</a></td>
+        <td class="qty-cell" data-qty="0">***</td>
+        <td class="alloc-cell" data-alloc="0.00%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$850–$900</td>
+        <td class="rec-add">Buy / Accumulate at these levels</td>
+        <td>Watchlist — no position held; 50% correction from ATH; compelling GLP-1 thesis</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-BE">BE</a></td>
+        <td class="qty-cell" data-qty="15">***</td>
+        <td class="alloc-cell" data-alloc="0.00%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-reduce">Avoid new entries; parabolic move</td>
+        <td>Parabolic 20x move; bearish reversal candle today; consider trimming on any bounce</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-WLTH">WLTH</a></td>
+        <td class="qty-cell" data-qty="0">***</td>
+        <td class="alloc-cell" data-alloc="0.89%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-reduce">Monitor only; insufficient history</td>
+        <td>Watchlist — no position held; insufficient history for confident entry</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-RGTI">RGTI</a></td>
+        <td class="qty-cell" data-qty="0">***</td>
+        <td class="alloc-cell" data-alloc="0.00%">***</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-exit">Avoid; still in post-spike downtrend</td>
+        <td>Watchlist — no position held; post-speculative-spike downtrend continues</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMD">AMD</a></td>
+        <td class="qty-cell" data-qty="80">***</td>
+        <td class="alloc-cell" data-alloc="7.12%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$290–$320</td>
+        <td class="rec-hold">Wait for pullback to trendline</td>
+        <td>Oscillator mid-run after vertical move; do not add at current levels</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GLD">GLD</a></td>
+        <td class="qty-cell" data-qty="20">***</td>
+        <td class="alloc-cell" data-alloc="2.22%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$400–$420</td>
+        <td class="rec-hold">Wait for oscillator to reset</td>
+        <td>Pulled back ~15% from peak; oscillator mid-range; better entry still below</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-IREN">IREN</a></td>
+        <td class="qty-cell" data-qty="100">***</td>
+        <td class="alloc-cell" data-alloc="1.30%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$45–$52</td>
+        <td class="rec-hold">Wait for wedge breakout confirmation</td>
+        <td>Inside symmetrical wedge; binary outcome; wait for confirmed breakout direction</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SLV">SLV</a></td>
+        <td class="qty-cell" data-qty="150">***</td>
+        <td class="alloc-cell" data-alloc="2.64%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$58–$65</td>
+        <td class="rec-hold">Wait for oscillator reset to oversold</td>
+        <td>Mid-range oscillator after parabolic spike; possible dead-cat bounce from $60</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-STX">STX</a></td>
+        <td class="qty-cell" data-qty="18">***</td>
+        <td class="alloc-cell" data-alloc="2.70%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$530–$560</td>
+        <td class="rec-hold">Wait for pullback to trendline</td>
+        <td>Sell signal near peak; oscillator declining; better entry ~10% lower</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-TSLA">TSLA</a></td>
+        <td class="qty-cell" data-qty="20">***</td>
+        <td class="alloc-cell" data-alloc="1.92%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$320–$350</td>
+        <td class="rec-hold">Wait for next oscillator reset</td>
+        <td>Mid-run from $220 Buy signal; no fresh entry until oscillator resets again</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="port-notes">
+    <h3>Portfolio Health</h3>
+    <ul>
+      <li><strong>Cash at 55.7% ($217,916)</strong> — significantly underdeployed. Multiple NEAR ZONE signals suggest selective deployment is warranted now, not later.</li>
+      <li><strong>VWO is the largest position</strong> at ~$41,300 (~24% of invested) — just under the 25% overweight threshold. Emerging market concentration adds currency and geopolitical risk; avoid adding more until other positions grow.</li>
+      <li><strong>International tilt:</strong> VEA + VWO + VXUS combined ≈ 36% of invested — strong ex-US diversification that benefits from the current USD weakening trend.</li>
+      <li><strong>Tech/AI exposure is light</strong> relative to cash available: AMD (80 shares), NVDA (25), GOOG (50). Both NVDA and GOOG are in confirmed NEAR ZONE — ideal candidates for incremental deployment.</li>
+    </ul>
+    <h3>Key Risks</h3>
+    <ul>
+      <li><strong>Cash drag:</strong> 55.7% idle cash underperforms in a sustained bull market; revisit deployment pace given current NEAR ZONE opportunities across multiple tickers.</li>
+      <li><strong>BE parabolic risk:</strong> 15 shares at $231 — stock is in extreme overbought territory with a bearish reversal candle today; consider trimming into any residual strength.</li>
+      <li><strong>IREN wedge resolution:</strong> 100 shares inside a symmetrical wedge — a breakdown below the lower trendline targets $30–$35. Monitor closely for breakout direction before adding.</li>
+      <li><strong>GLD + SLV oscillator lag:</strong> Both held but oscillators remain mid-range; avoid adding further until oversold reset conditions develop.</li>
+      <li><strong>AMD extended:</strong> 80 shares already held; vertical move makes current $347 level high risk for additional capital. Wait for $290–$320 pullback.</li>
+    </ul>
+    <h3>Action Items</h3>
+    <ul>
+      <li>Deploy cash into confirmed NEAR ZONE entries: <strong>NVDA ($195–$210)</strong> and <strong>GOOG ($330–$345)</strong> are the highest-conviction technical setups for near-term capital deployment.</li>
+      <li>Continue adding to <strong>DGRO, VEA, and VXUS</strong> on any market dip — steady uptrends with fresh Buy signals; suitable for consistent accumulation.</li>
+      <li>Consider a starter position in <strong>LLY ($850–$900)</strong> — 50% correction from ATH with oscillator leveling at oversold; one of the strongest risk/reward setups on the watchlist.</li>
+      <li><strong>Trim BE</strong> on any bounce — parabolic stocks without a base can surrender 50%+ quickly; lock in partial gains on the 15-share position.</li>
+      <li>Hold AMD, GLD, SLV, STX, TSLA, and IREN at current levels — wait for the next oscillator reset or confirmed breakout before adding.</li>
+      <li>No action on RGTI or WLTH watchlist entries; continue monitoring without committing capital.</li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- AMD -->
+<section id="section-AMD">
+  <h2>
+    <span class="ticker">AMD</span>
+    <span class="company">Advanced Micro Devices (~$347.81)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="AMD_1D_20260425_1218_annotated.png" alt="AMD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$347.81 | <strong>Entry Zone:</strong> <span class="entry-zone">$290–$320</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Massive recovery from 2025 lows (~$70–$80) back to new all-time highs above $347 — a near 5x move from the bottom.</li>
+    <li>Long-term ascending channel (two parallel diagonal trendlines) visible from the multi-year uptrend, still intact.</li>
+    <li>Buy signal dot (green circle) triggered at the recent oscillator low, confirming the base was set.</li>
+    <li>Oscillator lines crossing upward from oversold — momentum just turned positive, but the sharp straight-line move higher means the oscillator is mid-run.</li>
+    <li>Price surged sharply and nearly vertically in recent sessions — parabolic behavior; better entry on a consolidation or healthy pullback.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>AMD's MI300X AI GPU gaining data center traction as an alternative to NVIDIA H100/H200; hyperscalers diversifying their AI chip supply.</li>
+    <li>Revenue growth accelerating in data center segment; CPU business (EPYC) continues to take server market share from Intel.</li>
+    <li>Tariff concerns in early 2025 caused the deep correction; resolution or easing of restrictions drove the sharp recovery.</li>
+    <li>Valuation stretched at new ATHs — trades at premium P/E, justifiable only if AI GPU ramp continues.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $290–$320 on a pullback to the rising trendline or after oscillator resets to mid-range.</li>
+      <li><strong>Risk:</strong> If the sharp move stalls, a quick 15–20% pullback is possible; AI spending cycle uncertainty.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pullback to trendline — do not chase the vertical move.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- AMZN -->
+<section id="section-AMZN">
+  <h2>
+    <span class="ticker">AMZN</span>
+    <span class="company">Amazon (~$263.99)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="AMZN_1D_20260425_1218_annotated.png" alt="AMZN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$263.99 | <strong>Entry Zone:</strong> <span class="entry-zone">$250–$265</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Long-term ascending trendline (red diagonal) clearly visible — price dipped to touch this trendline around the $170–$180 area in early 2025 and has since bounced strongly.</li>
+    <li>Buy signal dot (purple circle) triggered at the recent oscillator trough, confirming the trendline hold.</li>
+    <li>Oscillator lines crossing upward from low levels — momentum is fresh and early in a new upswing.</li>
+    <li>Price recovered from ~$170 to $264 — still room to run toward prior all-time highs in the $240–$250 area; current price has already surpassed those.</li>
+    <li>Structure is higher highs and higher lows on the long-term chart; the trendline bounce is a textbook buy signal.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>AWS remains the cloud market leader; AI infrastructure spending and LLM workloads are accelerating AWS growth.</li>
+    <li>Advertising business growing rapidly, now a significant profit contributor alongside AWS.</li>
+    <li>Logistics and fulfillment network efficiency improvements driving margins higher in North America retail.</li>
+    <li>Kuiper satellite broadband project approaching launch — potential new revenue stream.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $250–$265 near current price; add more if price dips back toward $230–$240.</li>
+      <li><strong>Risk:</strong> Macro slowdown could pressure consumer spending; AWS growth deceleration risk.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add near trendline — oscillator just crossed up, momentum early and favorable.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- BE -->
+<section id="section-BE">
+  <h2>
+    <span class="ticker">BE</span>
+    <span class="company">Bloom Energy (~$231.03)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="BE_1D_20260425_1218.png" alt="BE chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$231.03 | <strong>Entry Zone:</strong> <span class="entry-zone">N/A — wait for base</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Massive parabolic move from single-digit territory to $240+ — a near 20x run in a short period driven by AI data center power demand narrative.</li>
+    <li>Multiple Buy signal dots visible at prior pullbacks, confirming the trend, but the current price level is at an extreme extension.</li>
+    <li>Oscillator is at elevated/overbought levels — not reset, no room for safe entry without significant risk.</li>
+    <li>Today's candle shows the open at $240.56 with a close at $231.03 — a large bearish day, suggesting early distribution phase.</li>
+    <li>No established base at these levels; stock needs weeks of consolidation before a safe re-entry point is visible.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Bloom Energy makes solid-oxide fuel cell systems for on-site power generation; major beneficiary of AI data center power demand surge.</li>
+    <li>Data center operators seeking reliable, scalable off-grid power options due to grid constraints — BE products fit this need.</li>
+    <li>Revenue is growing but company has historically struggled with profitability; current valuation prices in extreme optimism.</li>
+    <li>Competition from gas turbines, nuclear SMRs, and battery storage adds execution risk.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> No safe entry at current levels; wait for a 30–50% correction and base-building before re-evaluating.</li>
+      <li><strong>Risk:</strong> Extreme valuation, parabolic move, and today's bearish reversal candle suggest a top may be forming.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Avoid new entries — parabolic move with no base at current levels; watch from the sidelines.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- DGRO -->
+<section id="section-DGRO">
+  <h2>
+    <span class="ticker">DGRO</span>
+    <span class="company">iShares Core Dividend Growth ETF (~$72.78)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="DGRO_1D_20260425_1218_annotated.png" alt="DGRO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$72.78 | <strong>Entry Zone:</strong> <span class="entry-zone">$70–$73</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Clear multi-year ascending trendline intact — steady grind higher with controlled pullbacks, characteristic of a high-quality dividend ETF.</li>
+    <li>Price pulled back from the ~$74–$75 highs to ~$69–$70 range before recovering; current price at $72.78 is in the buy zone.</li>
+    <li>Buy signal dot triggered at the recent oscillator low, with the oscillator lines now crossing upward.</li>
+    <li>RSI oscillator at a healthy level (not overbought) — room to continue higher toward prior highs.</li>
+    <li>Structure of higher highs and higher lows remains intact throughout the chart history.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>DGRO holds ~430 US companies with consistent dividend growth records — diversified across sectors with quality tilt.</li>
+    <li>Benefits from a lower interest rate environment as dividend stocks become more attractive vs. bonds.</li>
+    <li>Lower volatility than growth ETFs; suitable as a core portfolio holding with steady income generation.</li>
+    <li>Top holdings typically include Financials, Healthcare, Technology, and Consumer Staples — balanced sector exposure.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $70–$73 near current levels; ideal entry on any dip back toward the $70 support zone.</li>
+      <li><strong>Risk:</strong> Broad market correction could pull all equities down; dividend cuts in a recession scenario.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add on dips — steady uptrend with fresh Buy signal and healthy oscillator.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- GLD -->
+<section id="section-GLD">
+  <h2>
+    <span class="ticker">GLD</span>
+    <span class="company">SPDR Gold Shares ETF (~$433.25)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="GLD_1D_20260425_1218_annotated.png" alt="GLD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$433.25 | <strong>Entry Zone:</strong> <span class="entry-zone">$400–$420</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Gold ETF ran parabolically from ~$200 area to $510+ peak — a massive move driven by safe-haven demand and central bank buying.</li>
+    <li>Sell signal dot visible at the $500+ peak, confirming the distribution phase.</li>
+    <li>Now at $433, which is a ~15% decline from peak — but the oscillator is still in mid-range territory (not yet oversold).</li>
+    <li>Long-term diagonal trendline from lower-left still provides broader support well below current price (around $380–$400 area).</li>
+    <li>For a higher-confidence entry, the oscillator should reset closer to oversold — currently at mid-range, downtrend not yet exhausted.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Gold demand driven by central bank purchases (especially EM central banks), US dollar weakness, and geopolitical uncertainty.</li>
+    <li>Elevated US government debt and potential Fed policy easing are long-term bullish drivers for gold.</li>
+    <li>The pullback from $510 to $433 is a healthy correction but may have further to go before the next sustained leg up.</li>
+    <li>Physical gold ETF with tight tracking; no counterparty risk relative to futures-based products.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $400–$420 after oscillator resets to oversold; ideal entry closer to the long-term trendline.</li>
+      <li><strong>Risk:</strong> Gold could consolidate in a wide range for months; risk-on environment could suppress safe-haven demand.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for oscillator reset — good long-term asset but better entry available below current price.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- GOOG -->
+<section id="section-GOOG">
+  <h2>
+    <span class="ticker">GOOG</span>
+    <span class="company">Alphabet / Google (~$342.32)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="GOOG_1D_20260425_1218_annotated.png" alt="GOOG chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$342.32 | <strong>Entry Zone:</strong> <span class="entry-zone">$330–$345</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Deep correction from prior highs (~$380–$400) down to the ~$200 area — a ~50% drawdown — before the current recovery to $342.</li>
+    <li>Two diagonal trendlines visible on the chart: a red declining trendline from the top and a rising trendline from the multi-year base.</li>
+    <li>Buy signal dot (purple circle) confirmed at recent lows, with oscillator lines crossing upward from a low position.</li>
+    <li>The oscillator is in the early-to-mid phase of its upswing — momentum is fresh and has room to continue.</li>
+    <li>Price has now recovered significantly from the lows and appears to have broken the declining trendline — bullish structure change.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Google Search remains dominant; Gemini AI integration into search and Workspace products driving productivity gains.</li>
+    <li>Google Cloud (GCP) growing rapidly, now a meaningful profit contributor; competing well with AWS and Azure.</li>
+    <li>YouTube advertising revenue strong; Shorts monetization improving.</li>
+    <li>Antitrust regulatory headwinds in the US and EU remain a risk; DOJ search monopoly case ongoing.</li>
+    <li>Waymo autonomous vehicle unit showing real commercial traction — potential long-term value unlock.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $330–$345 at current levels; add more if a dip to $310–$325 occurs.</li>
+      <li><strong>Risk:</strong> Regulatory risk (antitrust), AI disruption to search ad model, broader tech selloff.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add near support — significant correction behind it, Buy signal confirmed, oscillator early in recovery.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- HIMS -->
+<section id="section-HIMS">
+  <h2>
+    <span class="ticker">HIMS</span>
+    <span class="company">Hims &amp; Hers Health (~$30.56)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="HIMS_1D_20260425_1218_annotated.png" alt="HIMS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$30.56 | <strong>Entry Zone:</strong> <span class="entry-zone">$26–$30</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>HIMS spiked from ~$5 to $74 (a massive 14x move), then collapsed to $14–$16 area — losing ~80% from peak over many months.</li>
+    <li>Declining red diagonal trendline from the peak was the dominant structure during the downtrend.</li>
+    <li>Buy signal dot triggered at the $14–$16 lows, with the oscillator turning sharply upward from deeply oversold levels.</li>
+    <li>Price has now recovered to $30.56 — approximately a 100%+ move from the lows — and appears to have broken above the declining trendline.</li>
+    <li>Oscillator is rising from very low base levels and still has room to continue into the mid-range before becoming overbought.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>HIMS offers telehealth subscriptions across hair loss, ED, mental health, and weight loss (GLP-1) categories.</li>
+    <li>The original selloff was driven partly by FDA compounding pharmacy rules around semaglutide; resolution of regulatory uncertainty helped the bounce.</li>
+    <li>Subscriber growth and revenue have been strong; the platform is moving toward profitability.</li>
+    <li>Competitive landscape with GoodRx, Ro, and direct pharmacy chains is intensifying.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $26–$30 on any dip toward the breakout zone; already showing strong recovery momentum.</li>
+      <li><strong>Risk:</strong> Regulatory reversal on GLP-1 compounding could halt the rally; high volatility stock with wide swings.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy on dips toward trendline — oscillator early in recovery, breakout above downtrend line confirmed.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- IREN -->
+<section id="section-IREN">
+  <h2>
+    <span class="ticker">IREN</span>
+    <span class="company">Iris Energy (~$50.64)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="IREN_1D_20260425_1218_annotated.png" alt="IREN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$50.64 | <strong>Entry Zone:</strong> <span class="entry-zone">$45–$52</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Symmetrical triangle / converging wedge visible with two yellow diagonal trendlines: a descending resistance line from the $75+ high and an ascending support line from the $28–$30 lows.</li>
+    <li>Price is currently in the middle of the wedge at $50.64 — neither at support nor resistance; no edge in either direction.</li>
+    <li>Oscillator is in neutral territory — not overbought or oversold; no clear signal direction.</li>
+    <li>Wedge is tightening; a breakout is expected soon but direction is not yet determined by the chart alone.</li>
+    <li>Bitcoin price and AI/HPC data center demand are the key catalysts that will drive the breakout direction.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Iris Energy is a bitcoin miner pivoting toward AI and HPC (high-performance computing) data center hosting — a high-demand narrative.</li>
+    <li>Operating in Canada and the US with renewable-powered facilities; low-cost energy is a key competitive advantage.</li>
+    <li>AI data center pivot is real but execution risk remains; bitcoin mining margins compress when BTC price falls.</li>
+    <li>Cash burn and capital expenditure requirements are high as the company invests in GPU infrastructure.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $45–$52 after a confirmed breakout above the wedge's upper trendline with volume confirmation.</li>
+      <li><strong>Risk:</strong> Breakdown below lower trendline could see price fall to $30–$35; high BTC/AI correlation adds volatility.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for wedge breakout confirmation — no edge inside the wedge; patience required.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- LLY -->
+<section id="section-LLY">
+  <h2>
+    <span class="ticker">LLY</span>
+    <span class="company">Eli Lilly (~$883.96)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="LLY_1D_20260425_1218_annotated.png" alt="LLY chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$883.96 | <strong>Entry Zone:</strong> <span class="entry-zone">$850–$900</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>LLY peaked near $1,700–$1,750 and has since corrected approximately 50% to current levels at $883.96 — a significant but not unusual drawdown for a high-growth pharma stock.</li>
+    <li>Multiple Buy signal dots visible at prior pullback lows; current oscillator at a very low reading, approaching oversold territory.</li>
+    <li>Oscillator purple/orange lines appear to be leveling out and beginning to turn upward from very depressed levels — potential early reversal signal.</li>
+    <li>The ~50% correction from the peak brings LLY back to support levels where the stock previously consolidated before the final leg higher.</li>
+    <li>Long-term trend structure remains: the stock had a multi-year run and the correction, while painful, is within normal range for biotech/pharma.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Eli Lilly's GLP-1 drugs Mounjaro (tirzepatide) and Zepbound are capturing the obesity/diabetes market — one of the largest pharmaceutical opportunities in history.</li>
+    <li>Manufacturing capacity expansion is underway; supply has been the biggest bottleneck to revenue growth.</li>
+    <li>Pipeline includes additional GLP-1 formulations (oral, weekly injections), Alzheimer's treatments, and oncology assets.</li>
+    <li>The selloff from $1,750 was driven by pricing/reimbursement concerns and broader growth stock rotation — the fundamental thesis remains intact.</li>
+    <li>Trading at a more reasonable valuation now; long-term earnings growth potential from GLP-1 market penetration is enormous.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $850–$900 at current levels; ideal to accumulate in tranches given the potential for further consolidation.</li>
+      <li><strong>Risk:</strong> Drug pricing legislation, biosimilar competition timeline, or clinical trial failure could extend the downside.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Accumulate at these levels — 50% correction with oversold oscillator; strong long-term fundamental case.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- NVDA -->
+<section id="section-NVDA">
+  <h2>
+    <span class="ticker">NVDA</span>
+    <span class="company">NVIDIA (~$208.27)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="NVDA_1D_20260425_1218_annotated.png" alt="NVDA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$208.27 | <strong>Entry Zone:</strong> <span class="entry-zone">$195–$210</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Two major yellow diagonal trendlines visible: a long-term ascending support line from the 2022–2023 lows and a declining trendline from the recent ~$350 peak — forming a large descending wedge.</li>
+    <li>Price bounced off the long-term ascending trendline at the ~$175–$180 support area, which is a significant technical event.</li>
+    <li>Buy signal dot triggered at the trendline bounce with oscillator lines crossing upward from low levels.</li>
+    <li>Oscillator is in the early phase of a new upswing from depressed levels — momentum is fresh and building.</li>
+    <li>Price now at $208.27 — approaching the declining upper trendline of the wedge; a breakout above would be very bullish.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>NVIDIA dominates the AI GPU market with H100, H200, and next-gen Blackwell (B100/B200) chips; demand consistently exceeds supply.</li>
+    <li>Data center segment revenue growing at triple-digit rates; gross margins are exceptional for a hardware company.</li>
+    <li>China export restrictions were a headwind in 2024–2025; the stock corrected partly on this risk and potential tariff impacts.</li>
+    <li>CUDA ecosystem creates massive switching costs; AMD and Intel are years behind in the AI accelerator race.</li>
+    <li>Blackwell GPU ramp is underway; next revenue growth leg should continue through 2026–2027.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $195–$210 at current levels; the trendline bounce and Buy signal make this a high-conviction entry zone.</li>
+      <li><strong>Risk:</strong> Export control escalation, geopolitical risk, or AI spending slowdown could push price back to the lower trendline.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add near support — long-term trendline held, Buy signal confirmed, oscillator early in upswing.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- RGTI -->
+<section id="section-RGTI">
+  <h2>
+    <span class="ticker">RGTI</span>
+    <span class="company">Rigetti Computing (~$16.61)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="RGTI_1D_20260425_1218.png" alt="RGTI chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$16.61 | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>RGTI had a speculative spike from ~$2–$3 to $85+ (a 40x+ move in weeks) driven by quantum computing hype — now at $16.61, down 80%+ from the peak.</li>
+    <li>Clear downtrend structure: lower highs and lower lows after the spike; each bounce has been sold into.</li>
+    <li>Oscillator has not shown a confirmed Buy signal; any upward bounces in the oscillator have been short-lived and weak.</li>
+    <li>The stock is still in price discovery territory below the massive spike — no clear base has formed at these levels.</li>
+    <li>No confirmed trendline reversal or oscillator crossover from oversold levels visible.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Rigetti Computing builds superconducting quantum processors; still in early research and development phase with minimal commercial revenue.</li>
+    <li>Google's Willow quantum chip announcement in late 2024 sparked the speculative bubble in all quantum computing stocks including RGTI.</li>
+    <li>The commercial quantum computing market is years to decades away from practical enterprise deployment at scale.</li>
+    <li>Very high cash burn, dilution risk, and no path to profitability in the near term.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> No entry until a confirmed base forms over several months with oscillator Buy signal from oversold levels.</li>
+      <li><strong>Risk:</strong> Could fall further to $5–$10 area; speculative stocks post-spike can lose 90%+ from the high.</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Avoid — still in post-spike downtrend with no confirmed reversal signal; insufficient history at these levels.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- SLV -->
+<section id="section-SLV">
+  <h2>
+    <span class="ticker">SLV</span>
+    <span class="company">iShares Silver Trust ETF (~$68.79)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="SLV_1D_20260425_1218_annotated.png" alt="SLV chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$68.79 | <strong>Entry Zone:</strong> <span class="entry-zone">$58–$65</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Silver ETF ran from ~$22 area all the way to $108+ at peak — a 5x move — with a confirmed Sell signal dot at the top.</li>
+    <li>Price collapsed from $108 to ~$60–$62 range (a 40%+ decline) before bouncing back to current $68.79.</li>
+    <li>Long-term ascending red trendline from lower left is still intact and lies well below current price (~$50–$55 area).</li>
+    <li>Oscillator is in the mid-range territory (~40–50) and declining — not yet at oversold levels that would signal a high-confidence re-entry.</li>
+    <li>The bounce to $68 from $60 could be a dead-cat bounce rather than a genuine reversal; oscillator confirmation needed.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Silver has dual demand drivers: industrial use (solar panels, EVs, electronics) and safe-haven/precious metal demand alongside gold.</li>
+    <li>The spike was driven by tariff/inflation fears and gold correlation; the correction reflects some normalization.</li>
+    <li>Industrial demand for silver remains structurally strong given the energy transition; supports long-term prices.</li>
+    <li>The SLV ETF holds physical silver and tracks spot price closely — no tracking error risk.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $58–$65 on a deeper pullback where the oscillator resets to oversold, ideally toward the long-term trendline.</li>
+      <li><strong>Risk:</strong> Industrial demand slowdown in a recession; silver historically more volatile than gold.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for oscillator reset — mid-range oscillator after a parabolic spike; better entry below current price.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- SOFI -->
+<section id="section-SOFI">
+  <h2>
+    <span class="ticker">SOFI</span>
+    <span class="company">SoFi Technologies (~$18.44)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="SOFI_1D_20260425_1218_annotated.png" alt="SOFI chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$18.44 | <strong>Entry Zone:</strong> <span class="entry-zone">$17–$19</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>SOFI built a long base from $5 to $18–$20 range; price pulled back from ~$18 highs to $12 area, then recovered back to $18.44.</li>
+    <li>A yellow ascending diagonal trendline serves as long-term support — price touched this trendline at the recent lows and bounced cleanly.</li>
+    <li>Buy signal dot (purple circle) triggered at the trendline touch with oscillator lines crossing upward from low levels.</li>
+    <li>Oscillator is in early-to-mid phase of the upswing — still has room to move higher before becoming overbought.</li>
+    <li>Price is now retesting the prior resistance zone at $18–$20; a clean break above $20 would be very bullish.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>SoFi is a digital bank offering loans, banking, investing, and fintech services through its app — growing member base rapidly.</li>
+    <li>Received a national bank charter in 2022 which allows it to hold deposits and fund loans at lower cost, improving unit economics.</li>
+    <li>Student loan refinancing business hurt by the prolonged federal student loan payment pause; normalization is a tailwind.</li>
+    <li>Moving toward profitability; recent quarters showing positive adjusted EBITDA with improving revenue mix toward higher-margin products.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $17–$19 near current levels; ideal to add on any dip back toward the $15–$17 trendline zone.</li>
+      <li><strong>Risk:</strong> Interest rate environment affects loan margins; fintech competition from neobanks and traditional banks is intensifying.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy near trendline support — trendline bounce confirmed with Buy signal, oscillator early in recovery.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- STX -->
+<section id="section-STX">
+  <h2>
+    <span class="ticker">STX</span>
+    <span class="company">Seagate Technology (~$586.25)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="STX_1D_20260425_1218_annotated.png" alt="STX chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$586.25 | <strong>Entry Zone:</strong> <span class="entry-zone">$530–$560</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>STX ran from under $100 to $640+ in a major multi-year uptrend — a massive move driven by AI data storage demand (hard drives for AI training and inference).</li>
+    <li>Price is now pulling back from the $640 area high, currently at $586.25 — a ~9% correction from peak.</li>
+    <li>A long-term ascending diagonal trendline from the lower-left remains intact well below current price.</li>
+    <li>Oscillator is in mid-range and declining from elevated levels — Sell signal dot visible near the recent high; distribution phase in progress.</li>
+    <li>For a higher-confidence entry, need the oscillator to reset lower (toward the $530–$560 trendline support zone).</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Seagate dominates the hard disk drive (HDD) market; AI data centers require massive storage for model training datasets.</li>
+    <li>Heat-assisted magnetic recording (HAMR) technology enables higher capacity drives — a technology moat vs. WD and Toshiba.</li>
+    <li>Strong earnings growth driven by enterprise HDD demand recovery and new high-capacity product cycles.</li>
+    <li>SSD competition from NAND suppliers is a long-term risk to HDD pricing for some use cases.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $530–$560 after a fuller pullback to trendline support and oscillator reset.</li>
+      <li><strong>Risk:</strong> HDD secular decline in consumer/laptop markets; enterprise capex slowdown could reduce demand.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pullback to trendline — oscillator declining from highs after Sell signal; better entry below.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TSLA -->
+<section id="section-TSLA">
+  <h2>
+    <span class="ticker">TSLA</span>
+    <span class="company">Tesla (~$376.30)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="TSLA_1D_20260425_1218_annotated.png" alt="TSLA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$376.30 | <strong>Entry Zone:</strong> <span class="entry-zone">$320–$350</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Tesla ran from ~$165 to nearly $480 (post-election surge late 2024), then corrected sharply to ~$220 in early 2025, and has since recovered to $376.30.</li>
+    <li>Buy signal dot triggered at the ~$220 low; oscillator was deeply oversold at that point and has been recovering since.</li>
+    <li>Oscillator is now in mid-range territory — the buy signal from the lows has already been acted on; the oscillator hasn't reset again for a second entry.</li>
+    <li>Price is between prior lows (~$220) and prior highs (~$480) — currently in the middle zone, no clear tactical edge.</li>
+    <li>For a new entry, ideally wait for another oscillator reset toward oversold on a dip to the $320–$350 range.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Tesla's EV delivery volumes have faced headwinds from competition (BYD in China, Rivian/Ford in the US) and brand perception issues.</li>
+    <li>Full Self-Driving (FSD) and robotaxi ambitions remain long-term catalysts — Austin robotaxi launch expected mid-2025.</li>
+    <li>Optimus humanoid robot development could be a massive addressable market; early versions in Tesla factories.</li>
+    <li>Elon Musk's political role and time allocation have raised concerns about Tesla leadership focus.</li>
+    <li>Energy storage (Megapack) is a fast-growing, high-margin business that the market may be undervaluing.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $320–$350 on a pullback with oscillator reset toward oversold levels.</li>
+      <li><strong>Risk:</strong> EV competition intensifying globally; execution risk on FSD and robotaxi timeline; Musk distraction risk.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for next oscillator reset — already mid-run from the $220 Buy signal; need a new entry setup.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- VEA -->
+<section id="section-VEA">
+  <h2>
+    <span class="ticker">VEA</span>
+    <span class="company">Vanguard FTSE Developed Markets ETF (~$68.14)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="VEA_1D_20260425_1218_annotated.png" alt="VEA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$68.14 | <strong>Entry Zone:</strong> <span class="entry-zone">$65–$68</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>VEA shows a clear multi-year uptrend from ~$50 (post-COVID recovery) to current $68 area — steady and controlled appreciation.</li>
+    <li>Price pulled back from recent highs (~$69–$70) to the $62–$64 zone before recovering; the pullback was healthy and orderly.</li>
+    <li>Buy signal dot confirmed at the recent oscillator low, with lines crossing upward — momentum turning positive.</li>
+    <li>Oscillator RSI is in the mid-to-upper range (~60+) — still healthy, not overbought; uptrend has room to continue.</li>
+    <li>International developed markets (Europe, Japan, Australia) offer valuation diversification from elevated US equity multiples.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>VEA holds large-cap stocks from developed markets ex-US: Europe, Japan, Canada, Australia, and more — approximately 4,000 holdings.</li>
+    <li>Valuations in European and Japanese markets are significantly cheaper than US equities on P/E and P/B metrics.</li>
+    <li>USD weakening trend benefits US investors in international ETFs through currency translation gains.</li>
+    <li>European defense spending increases and Japan market reform initiatives are additional catalysts for the holdings.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $65–$68 near current levels; add more on any dip toward the $63–$65 support zone.</li>
+      <li><strong>Risk:</strong> Stronger USD would reduce returns for US-based investors; European recession risk; China slowdown impact on global trade.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add on dips — steady uptrend, Buy signal confirmed, cheap international exposure relative to US.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- VWO -->
+<section id="section-VWO">
+  <h2>
+    <span class="ticker">VWO</span>
+    <span class="company">Vanguard FTSE Emerging Markets ETF (~$59.02)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="VWO_1D_20260425_1218_annotated.png" alt="VWO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$59.02 | <strong>Entry Zone:</strong> <span class="entry-zone">$56–$59</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>VWO shows a solid uptrend from ~$45 (2022 lows) to $60+ area — recovering strongly from multi-year lows.</li>
+    <li>Price pulled back from ~$57–$58 area to ~$52–$54 zone before bouncing sharply back to $59.02.</li>
+    <li>Buy signal dot triggered at the recent oscillator low with lines crossing upward — fresh momentum signal.</li>
+    <li>Oscillator RSI turning upward from a lower base — momentum is building with room to continue into the mid-to-upper range.</li>
+    <li>Structure of higher highs and higher lows is intact on the long-term chart; uptrend is in force.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>VWO holds emerging market equities: China (~25%), India (~20%), Taiwan, Brazil, South Africa, and others — broad EM exposure.</li>
+    <li>India's structural growth story (demographics, digitization, manufacturing shift from China) is a key long-term driver.</li>
+    <li>China stimulus measures and property market stabilization efforts provide a near-term catalyst for Chinese holdings.</li>
+    <li>EM equities trade at a significant valuation discount to US equities — structural tailwind as global investors reallocate.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $56–$59 near current price; ideal on any dip toward the $54–$56 support zone.</li>
+      <li><strong>Risk:</strong> USD strength hurts EM returns; China geopolitical risk (Taiwan); commodity price sensitivity for some EM economies.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add on dips — fresh Buy signal from recent low, uptrend intact, cheap EM valuations.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- VXUS -->
+<section id="section-VXUS">
+  <h2>
+    <span class="ticker">VXUS</span>
+    <span class="company">Vanguard Total International Stock ETF (~$82.49)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="VXUS_1D_20260425_1218_annotated.png" alt="VXUS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$82.49 | <strong>Entry Zone:</strong> <span class="entry-zone">$79–$83</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>VXUS shows a clear multi-year uptrend from ~$62 area to $86+ range — steady appreciation combining both developed and emerging market exposure.</li>
+    <li>Price pulled back from the ~$84–$86 highs to ~$79–$80 zone before bouncing back to $82.49.</li>
+    <li>Buy signal dot confirmed at the recent oscillator trough with lines crossing upward — fresh momentum signal.</li>
+    <li>Oscillator RSI turning upward from lower levels — early in the upswing with room to continue toward upper range.</li>
+    <li>Combined VEA + VWO exposure makes this a single-fund solution for total international diversification.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>VXUS holds ~8,500 stocks from 47 countries outside the US — the broadest international diversification available in a single ETF.</li>
+    <li>Blends developed market stability (Europe, Japan) with emerging market growth potential (India, China, Brazil).</li>
+    <li>USD weakness tailwind benefits US investors holding international stocks through currency translation.</li>
+    <li>Extremely low expense ratio at 0.07% — cost-efficient broad international exposure.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> $79–$83 near current levels; add more on dips toward the $77–$79 support zone.</li>
+      <li><strong>Risk:</strong> USD strengthening reversal would compress returns; global growth slowdown; geopolitical risks.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add on dips — fresh Buy signal, uptrend intact, broad international diversification at low cost.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- WLTH -->
+<section id="section-WLTH">
+  <h2>
+    <span class="ticker">WLTH</span>
+    <span class="company">Wealth.com (~$10.69)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="WLTH_1D_20260425_1218.png" alt="WLTH chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$10.69 | <strong>Entry Zone:</strong> <span class="entry-zone">N/A — monitor only</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Very limited price history visible — only a few months of data from early 2026 onward; recently listed or very thinly covered stock.</li>
+    <li>Price dropped from ~$15 to a low of ~$6.50–$7 area in a sharp decline, then recovered in a V-shape to current $10.69.</li>
+    <li>Buy signal dot visible at the lows with RSI oscillator turning sharply upward from deeply oversold levels.</li>
+    <li>The recovery from $6.50 to $10.69 is already a ~65% move from the low — catching up late to this move is risky.</li>
+    <li>Insufficient chart history to assess trend structure, key support/resistance levels, or oscillator behavior patterns reliably.</li>
+  </ul>
+  <h3>News &amp; Financials</h3>
+  <ul>
+    <li>Wealth.com is an estate planning and digital wealth transfer platform — relatively niche market.</li>
+    <li>Very limited public financial data available; small-cap speculative stock with limited analyst coverage.</li>
+    <li>The estate planning software market has growth potential but is highly competitive with established players.</li>
+    <li>Insufficient fundamental data to make a meaningful investment thesis at this stage.</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> No entry at this time; need at least 6–12 months of additional chart history to assess properly.</li>
+      <li><strong>Risk:</strong> Small-cap, limited liquidity, high volatility; insufficient history to identify reliable support levels.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Monitor only — insufficient chart history and fundamental data for a confident entry; watch from the sidelines.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<footer>Stock Analysis Report &mdash; April 25, 2026 &mdash; 12:18 &mdash; AI-generated. Not financial advice.</footer>
+<script>
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  function revealQty() {
+    document.querySelector('.port-summary').classList.add('unlocked');
+    document.querySelectorAll('.qty-cell').forEach(td => {
+      td.textContent = td.dataset.qty;
+      td.classList.add('unlocked');
+    });
+    document.querySelectorAll('.alloc-cell').forEach(td => {
+      td.textContent = td.dataset.alloc;
+      td.classList.add('unlocked');
+    });
+    const btn = document.getElementById('lockToggle');
+    btn.innerHTML = '&#x1F513;';
+    btn.title = 'Lock Qty';
+    btn.onclick = lockQty;
+  }
+  function lockQty() {
+    document.querySelector('.port-summary').classList.remove('unlocked');
+    document.querySelectorAll('.qty-cell').forEach(td => {
+      td.textContent = '***';
+      td.classList.remove('unlocked');
+    });
+    document.querySelectorAll('.alloc-cell').forEach(td => {
+      td.textContent = '***';
+      td.classList.remove('unlocked');
+    });
+    sessionStorage.removeItem('portfolioAuth');
+    const btn = document.getElementById('lockToggle');
+    btn.innerHTML = '&#x1F512;';
+    btn.title = 'Unlock Qty';
+    btn.onclick = openLockModal;
+  }
+  function openLockModal() {
+    document.getElementById('lockOverlay').classList.add('active');
+    document.getElementById('lockPassword').value = '';
+    document.getElementById('lockError').textContent = '';
+    document.getElementById('lockPassword').focus();
+  }
+  function closeLockModal() {
+    document.getElementById('lockOverlay').classList.remove('active');
+  }
+  async function unlockPortfolio() {
+    const pwd = document.getElementById('lockPassword').value;
+    const hash = await sha256(pwd);
+    if (hash === '2597632105456d5d4057bdd50afb979bb770f730ea4532796680ace80e302d04') {
+      sessionStorage.setItem('portfolioAuth', 'true');
+      closeLockModal();
+      revealQty();
+    } else {
+      document.getElementById('lockError').textContent = 'Incorrect password';
+      document.getElementById('lockPassword').value = '';
+      document.getElementById('lockPassword').focus();
+    }
+  }
+  document.getElementById('lockPassword').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') unlockPortfolio();
+  });
+  document.getElementById('lockOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lockOverlay')) closeLockModal();
+  });
+  if (sessionStorage.getItem('portfolioAuth')) {
+    revealQty();
+  }
+</script>
+</body>
+</html>
