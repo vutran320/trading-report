@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stock Analysis — April 24, 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0e0e0e; color: #d0d0d0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 24px; max-width: 1100px; margin: 0 auto; }
+    header { border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; margin-bottom: 32px; }
+    header h1 { font-size: 1.8rem; color: #e8e8e8; margin-bottom: 6px; }
+    .meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+    .meta span { background: #1a1a1a; border: 1px solid #2a2a2a; padding: 3px 10px; border-radius: 4px; font-size: 0.82rem; color: #aaa; }
+    .note { margin-top: 10px; font-size: 0.82rem; color: #666; font-style: italic; }
+    h2 { font-size: 1.25rem; color: #e8e8e8; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    h3 { font-size: 0.95rem; color: #bbb; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+    hr { border: none; border-top: 1px solid #1e1e1e; margin: 32px 0; }
+    .ticker { color: #7cb9f0; font-weight: 700; font-size: 1.3rem; }
+    .company { color: #aaa; font-weight: 400; font-size: 1rem; }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tag-watch { background: #003020; color: #66bb6a; border: 1px solid #1a5c30; }
+    .tag-wait  { background: #2a1d00; color: #f0c040; border: 1px solid #5a3d00; }
+    .tag-risky { background: #2a1000; color: #ff9800; border: 1px solid #6b2800; }
+    .tag-avoid { background: #2a0000; color: #ff6b6b; border: 1px solid #6b0000; }
+    .action-watch { color: #66bb6a; font-weight: 600; }
+    .action-wait  { color: #f0c040; font-weight: 600; }
+    .action-risky { color: #ff9800; font-weight: 600; }
+    .action-avoid { color: #ff6b6b; font-weight: 600; }
+    .chart-img { display: block; width: 100%; max-width: 900px; border-radius: 6px; border: 1px solid #2a2a2a; margin: 12px 0; }
+    ul { list-style: disc; padding-left: 20px; }
+    ul li { margin-bottom: 4px; color: #c0c0c0; }
+    .entry-zone { color: #7cb9f0; font-weight: 600; }
+    .assessment { background: #141414; border: 1px solid #2a2a2a; border-left: 3px solid #444; border-radius: 6px; padding: 14px 16px; margin-top: 14px; }
+    .assessment h3 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th { background: #1a1a1a; color: #aaa; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a2a; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em; }
+    td { padding: 9px 12px; border-bottom: 1px solid #1e1e1e; color: #c8c8c8; }
+    tr:hover td { background: #161616; }
+    td.entry-zone { color: #7cb9f0; }
+    .ticker-link { color: #7cb9f0; font-weight: 600; text-decoration: none; }
+    .ticker-link:hover { text-decoration: underline; }
+    .back-to-top { display: inline-flex; align-items: center; gap: 5px; margin: 6px 0 14px; padding: 4px 12px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; color: #777; font-size: 0.78rem; text-decoration: none; }
+    .back-to-top:hover { color: #aaa; border-color: #444; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #1e1e1e; color: #555; font-size: 0.8rem; text-align: center; }
+    .portfolio-assessment.locked { position: relative; display: flex; align-items: center; justify-content: center; min-height: 400px; }
+    .portfolio-assessment.locked > * { display: none; }
+    .lock-box { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 32px; max-width: 400px; width: 90%; display: block; }
+    .lock-box h2 { color: #e8e8e8; margin-bottom: 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .lock-box input { width: 100%; padding: 10px 12px; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 4px; color: #d0d0d0; font-size: 1rem; margin-bottom: 16px; }
+    .lock-box button { width: 100%; padding: 10px 12px; background: #7cb9f0; color: #000; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+    .lock-box button:hover { background: #99ccff; }
+    .lock-error { color: #ff6b6b; font-size: 0.9rem; margin-top: -12px; margin-bottom: 12px; min-height: 20px; }
+    .portfolio-assessment h2 { font-size: 1.4rem; margin-bottom: 16px; }
+    .port-summary { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .port-stat { background: #141414; border: 1px solid #2a2a2a; border-radius: 6px; padding: 10px 16px; min-width: 120px; }
+    .stat-label { display: block; font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .stat-value { display: block; font-size: 1.1rem; color: #e8e8e8; font-weight: 600; }
+    .port-notes { margin-top: 20px; }
+    .port-notes h3 { margin-top: 16px; }
+    .rec-add { color: #66bb6a; font-weight: 600; }
+    .rec-hold { color: #f0c040; font-weight: 600; }
+    .rec-reduce { color: #ff9800; font-weight: 600; }
+    .rec-exit { color: #ff6b6b; font-weight: 600; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Stock Analysis Report</h1>
+  <div class="meta">
+    <span>Date: April 24, 2026</span>
+    <span>Time: 16:48</span>
+    <span>Timeframe: 1D</span>
+    <span>Tickers: 19</span>
+  </div>
+  <p class="note">Analysis uses oscillators, trendlines, and price structure. Horizontal price lines and colored zones excluded. Not financial advice.</p>
+</header>
+
+<!-- PORTFOLIO_ASSESSMENT -->
+<section class="portfolio-assessment">
+  <h2>Portfolio Assessment</h2>
+  <div class="port-summary">
+    <div class="port-stat"><span class="stat-label">Balance</span><span class="stat-value">$386,079</span></div>
+    <div class="port-stat"><span class="stat-label">Cash</span><span class="stat-value">$194,841</span></div>
+    <div class="port-stat"><span class="stat-label">Cash %</span><span class="stat-value">50.5%</span></div>
+    <div class="port-stat"><span class="stat-label">Invested</span><span class="stat-value">$191,238</span></div>
+    <div class="port-stat"><span class="stat-label">Positions</span><span class="stat-value">17</span></div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Ticker</th><th>Qty</th><th>Chart Rating</th><th>Entry Zone</th><th>Action</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="ticker-link" href="#section-DGRO">DGRO</a></td>
+        <td>97</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$71.00–$72.50</td>
+        <td class="rec-add">Buy / Add on dips to $71-$72.50</td>
+        <td>Dividend growth ETF, steady uptrend</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GLD">GLD</a></td>
+        <td>20</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$420.00–$430.00</td>
+        <td class="rec-add">Buy / Add on dips to $420-$430</td>
+        <td>Gold ETF, safe-haven demand intact</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GOOG">GOOG</a></td>
+        <td>50</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$335.00–$345.00</td>
+        <td class="rec-add">Buy / Add on minor dips toward $335</td>
+        <td>Strong uptrend with AI narrative</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-STX">STX</a></td>
+        <td>18</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$570.00–$585.00</td>
+        <td class="rec-add">Buy / Add into weakness at $570-$585</td>
+        <td>Data center storage tailwind</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-BE">BE</a></td>
+        <td>15</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$200.00–$215.00</td>
+        <td class="rec-reduce">Reduce / Trim exposure</td>
+        <td>Parabolic structure, pre-profitability</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-TSLA">TSLA</a></td>
+        <td>20</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$340.00–$350.00</td>
+        <td class="rec-reduce">Reduce - Wait for major support at $340-$350</td>
+        <td>Volatility elevated, trend uncertain</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-IREN">IREN</a></td>
+        <td>100</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">$45.00–$48.00</td>
+        <td class="rec-exit">Avoid - Wait for stabilization</td>
+        <td>Downtrend, limited liquidity</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-RGTI">RGTI</a></td>
+        <td>200</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$14.00–$15.50</td>
+        <td class="rec-exit">Avoid - Too speculative</td>
+        <td>Quantum computing, erratic structure</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SOFI">SOFI</a></td>
+        <td>250</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">$16.00–$18.00</td>
+        <td class="rec-exit">Avoid / Wait for clearer setup</td>
+        <td>Choppy consolidation, high volatility</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VWO">VWO</a></td>
+        <td>700</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">$55.00–$57.00</td>
+        <td class="rec-exit">Avoid / Wait for better setup</td>
+        <td>Emerging markets weak, EM currency pressure</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-WLTH">WLTH</a></td>
+        <td>300</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">$9.50–$10.50</td>
+        <td class="rec-exit">Avoid - Insufficient data</td>
+        <td>Closed-end fund, erratic structure</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMD">AMD</a></td>
+        <td>120</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$330.00–$340.00</td>
+        <td class="rec-hold">Wait for pullback to $330-$340</td>
+        <td>Uptrend intact, oscillator not reset</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMZN">AMZN</a></td>
+        <td>0</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$245.00–$255.00</td>
+        <td class="rec-hold">Wait for dip to $245-$255 support zone</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-HIMS">HIMS</a></td>
+        <td>0</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$27.00–$29.00</td>
+        <td class="rec-hold">Wait for pullback to support at $27-$29</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-LLY">LLY</a></td>
+        <td>5</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$850.00–$870.00</td>
+        <td class="rec-hold">Wait for minor pullback to $850-$870</td>
+        <td>GLP-1 growth driver, premium valuation</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-NVDA">NVDA</a></td>
+        <td>25</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$190.00–$200.00</td>
+        <td class="rec-hold">Wait for pull back to $190-$200 zone</td>
+        <td>AI chip demand strong, consolidating</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SLV">SLV</a></td>
+        <td>150</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$64.00–$66.00</td>
+        <td class="rec-hold">Wait for pullback to $64-$66</td>
+        <td>Silver uptrend with consolidation</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VEA">VEA</a></td>
+        <td>148</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$65.00–$67.00</td>
+        <td class="rec-hold">Wait for pullback to $65-$67</td>
+        <td>Developed markets, oscillator not reset</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VXUS">VXUS</a></td>
+        <td>150</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$79.00–$81.00</td>
+        <td class="rec-hold">Wait for pullback to $79-$81</td>
+        <td>International diversification, consolidating</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="port-notes">
+    <h3>Key Risks</h3>
+    <ul>
+      <li><strong>Emerging markets weakness:</strong> VWO (700 shares) is caught in a downtrend amid Fed policy headwinds and China concerns. Consider trimming into any strength.</li>
+      <li><strong>Speculative positions:</strong> RGTI and WLTH are erratic structures with unclear direction — remain on watchlist only, no additional capital.</li>
+      <li><strong>High volatility exposure:</strong> SOFI and TSLA lack clear base setups; TSLA's lower-highs pattern warrants trimming exposure.</li>
+      <li><strong>Concentration in semiconductors:</strong> AMD, NVDA collectively represent ~$47k invested — monitor for distribution if leadership turns.</li>
+    </ul>
+    <h3>Action Items</h3>
+    <ul>
+      <li><strong>Trim underperforming positions:</strong> Reduce TSLA exposure near any strength toward $370–$380; trim RGTI entirely if approaching $16–$17 (highly speculative).</li>
+      <li><strong>Scale into strength:</strong> DGRO, GLD, GOOG, STX all show healthy setups — add 2–3% portfolio allocation on dips to entry zones.</li>
+      <li><strong>Evaluate VWO exit:</strong> 700 shares in emerging markets carry downtrend risk; consider exiting into rallies or reducing by 50% to redeploy into US uptrends.</li>
+      <li><strong>Wait and hold core positions:</strong> AMD, NVDA, LLY, SLV, VEA, VXUS are all in sound uptrends — accumulate only on technical pullbacks, no need to chase.</li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- AMD -->
+<section id="section-AMD">
+  <h2>
+    <span class="ticker">AMD</span>
+    <span class="company">Advanced Micro Devices (~$349.60)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="AMD_1D_20260424_1648_annotated.png" alt="AMD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $349.60 | <strong>Entry Zone:</strong> <span class="entry-zone">$330.00–$340.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Clear uptrend with higher highs and lows maintained</li>
+    <li>Oscillator showing strength but not yet reset</li>
+    <li>Price consolidating near recent highs</li>
+    <li>Diagonal trendline intact providing support</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Strong semiconductor demand backdrop</li>
+    <li>AI-driven sector momentum continues</li>
+    <li>Valuation at premium levels but justified</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $330.00–$340.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pullback to $330-$340</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- AMZN -->
+<section id="section-AMZN">
+  <h2>
+    <span class="ticker">AMZN</span>
+    <span class="company">Amazon.com (~$264.30)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="AMZN_1D_20260424_1648_annotated.png" alt="AMZN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $264.30 | <strong>Entry Zone:</strong> <span class="entry-zone">$245.00–$255.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Uptrend intact with solid structure</li>
+    <li>Oscillator not yet reset for new buy entry</li>
+    <li>Price near resistance, consolidating</li>
+    <li>Support building above $255 level</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Cloud growth accelerating</li>
+    <li>AWS margin expansion narrative intact</li>
+    <li>Recent strength from tech rally</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $245.00–$255.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for dip to $245-$255 support zone</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- BE -->
+<section id="section-BE">
+  <h2>
+    <span class="ticker">BE</span>
+    <span class="company">Bloom Energy (~$233.25)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="BE_1D_20260424_1648_annotated.png" alt="BE chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $233.25 | <strong>Entry Zone:</strong> <span class="entry-zone">$200.00–$215.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Parabolic structure with extended move</li>
+    <li>Oscillator elevated, not reset</li>
+    <li>Price showing volatility spikes</li>
+    <li>No confirmed base structure yet</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Green energy narrative strong but valuation uncertain</li>
+    <li>Company burning cash on growth</li>
+    <li>High valuation for pre-profitability stage</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $200.00–$215.00</li>
+      <li><strong>Action:</strong> <span class="action-risky">Reduce / Trim exposure</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- DGRO -->
+<section id="section-DGRO">
+  <h2>
+    <span class="ticker">DGRO</span>
+    <span class="company">iShares Core Dividend Growth ETF (~$74.00)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="DGRO_1D_20260424_1648_annotated.png" alt="DGRO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $74.00 | <strong>Entry Zone:</strong> <span class="entry-zone">$71.00–$72.50</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Steady dividend growth trend intact</li>
+    <li>Oscillator showing moderate strength</li>
+    <li>Quality dividend stock consolidation</li>
+    <li>Support solid at trendline</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Dividend yield attractive at current levels</li>
+    <li>Quality large-cap focus</li>
+    <li>Steady earnings growth expected</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $71.00–$72.50</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add on dips to $71-$72.50</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- GLD -->
+<section id="section-GLD">
+  <h2>
+    <span class="ticker">GLD</span>
+    <span class="company">SPDR Gold Shares ETF (~$432.65)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="GLD_1D_20260424_1648_annotated.png" alt="GLD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $432.65 | <strong>Entry Zone:</strong> <span class="entry-zone">$420.00–$430.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Gold uptrend intact and strong</li>
+    <li>Oscillator not overbought, room for move</li>
+    <li>Price consolidating healthily</li>
+    <li>Support building at trendline</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Geopolitical tensions supporting safe-haven demand</li>
+    <li>Central bank buying continues</li>
+    <li>Inflation hedge narrative active</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $420.00–$430.00</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add on dips to $420-$430</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- GOOG -->
+<section id="section-GOOG">
+  <h2>
+    <span class="ticker">GOOG</span>
+    <span class="company">Alphabet (Google) (~$341.85)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="GOOG_1D_20260424_1648_annotated.png" alt="GOOG chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $341.85 | <strong>Entry Zone:</strong> <span class="entry-zone">$335.00–$345.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Strong uptrend with higher highs and lows</li>
+    <li>Oscillator showing healthy momentum</li>
+    <li>Price consolidating in entry zone</li>
+    <li>Trendline support building confidence</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>AI integration driving growth narrative</li>
+    <li>Search dominance stable</li>
+    <li>Cloud business expanding</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $335.00–$345.00</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add on minor dips toward $335</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- HIMS -->
+<section id="section-HIMS">
+  <h2>
+    <span class="ticker">HIMS</span>
+    <span class="company">Hims & Hers Health (~$30.60)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="HIMS_1D_20260424_1648_annotated.png" alt="HIMS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $30.60 | <strong>Entry Zone:</strong> <span class="entry-zone">$27.00–$29.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Uptrend with recent consolidation</li>
+    <li>Oscillator not yet reset despite pullback</li>
+    <li>Support holding at trendline</li>
+    <li>Price working on breakout from pattern</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Telehealth adoption continuing</li>
+    <li>GLP-1 medication sales strong</li>
+    <li>Regulatory environment improving</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $27.00–$29.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pullback to support at $27-$29</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- IREN -->
+<section id="section-IREN">
+  <h2>
+    <span class="ticker">IREN</span>
+    <span class="company">Iridian International Holding (~$50.84)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="IREN_1D_20260424_1648_annotated.png" alt="IREN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $50.84 | <strong>Entry Zone:</strong> <span class="entry-zone">$45.00–$48.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Downtrend structure established</li>
+    <li>Lower highs and lower lows pattern</li>
+    <li>Oscillator weak without recovery confirmation</li>
+    <li>No clear support established</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Limited liquidity in trading</li>
+    <li>Small cap with execution risk</li>
+    <li>Needs fundamental catalyst</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $45.00–$48.00</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Avoid - Wait for stabilization</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- LLY -->
+<section id="section-LLY">
+  <h2>
+    <span class="ticker">LLY</span>
+    <span class="company">Eli Lilly (~$884.55)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="LLY_1D_20260424_1648_annotated.png" alt="LLY chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $884.55 | <strong>Entry Zone:</strong> <span class="entry-zone">$850.00–$870.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Strong uptrend with consistent higher highs</li>
+    <li>Oscillator in mid-range with reset potential</li>
+    <li>Price consolidating near recent highs</li>
+    <li>Support building at trendline</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>GLP-1 drugs driving significant growth</li>
+    <li>Strong pipeline for upcoming years</li>
+    <li>Valuation elevated but growth justifies it</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $850.00–$870.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for minor pullback to $850-$870</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- NVDA -->
+<section id="section-NVDA">
+  <h2>
+    <span class="ticker">NVDA</span>
+    <span class="company">NVIDIA Corporation (~$208.18)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="NVDA_1D_20260424_1648_annotated.png" alt="NVDA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $208.18 | <strong>Entry Zone:</strong> <span class="entry-zone">$190.00–$200.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Uptrend with consolidation pattern forming</li>
+    <li>Oscillator neither overbought nor reset</li>
+    <li>Price testing trendline support</li>
+    <li>Needs confirmation for next leg</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>AI chip demand remains strong</li>
+    <li>Excellent margin profile</li>
+    <li>Competition from AMD/others increasing</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $190.00–$200.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pull back to $190-$200 zone</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- RGTI -->
+<section id="section-RGTI">
+  <h2>
+    <span class="ticker">RGTI</span>
+    <span class="company">Rigetti Computing (~$16.74)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="RGTI_1D_20260424_1648_annotated.png" alt="RGTI chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $16.74 | <strong>Entry Zone:</strong> <span class="entry-zone">$14.00–$15.50</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Highly volatile with unclear direction</li>
+    <li>No established trend or support</li>
+    <li>Oscillator erratic without clear signals</li>
+    <li>Speculative structure throughout</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Quantum computing still early stage</li>
+    <li>High speculation and volatility</li>
+    <li>Technology risk/reward unclear</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $14.00–$15.50</li>
+      <li><strong>Action:</strong> <span class="action-risky">Avoid - Too speculative</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- SLV -->
+<section id="section-SLV">
+  <h2>
+    <span class="ticker">SLV</span>
+    <span class="company">iShares Silver Trust ETF (~$68.60)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="SLV_1D_20260424_1648_annotated.png" alt="SLV chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $68.60 | <strong>Entry Zone:</strong> <span class="entry-zone">$64.00–$66.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Silver uptrend with consolidation</li>
+    <li>Oscillator showing mid-range strength</li>
+    <li>Price needs reset for better entry</li>
+    <li>Support establishing at trendline</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Industrial demand stable alongside safe-haven flows</li>
+    <li>Uptrend in gold supporting silver</li>
+    <li>Volatility higher than gold</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $64.00–$66.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pullback to $64-$66</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- SOFI -->
+<section id="section-SOFI">
+  <h2>
+    <span class="ticker">SOFI</span>
+    <span class="company">SoFi Technologies (~$18.50)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="SOFI_1D_20260424_1648_annotated.png" alt="SOFI chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $18.50 | <strong>Entry Zone:</strong> <span class="entry-zone">$16.00–$18.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Choppy consolidation pattern forming</li>
+    <li>No clear directional bias established</li>
+    <li>Oscillator fluctuating without confirmation</li>
+    <li>Needs clearer base establishment</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Financial services disruption story intact</li>
+    <li>Profitability path becoming clearer</li>
+    <li>Still highly volatile fintech play</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $16.00–$18.00</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Avoid / Wait for clearer setup</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- STX -->
+<section id="section-STX">
+  <h2>
+    <span class="ticker">STX</span>
+    <span class="company">Seagate Technology (~$587.90)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="STX_1D_20260424_1648_annotated.png" alt="STX chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $587.90 | <strong>Entry Zone:</strong> <span class="entry-zone">$570.00–$585.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Uptrend with solid consolidation pattern</li>
+    <li>Oscillator showing strength at solid levels</li>
+    <li>Price near entry zone</li>
+    <li>Support confirmed at trendline</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>AI data center buildout boosting storage demand</li>
+    <li>Cloud spending accelerating</li>
+    <li>Enterprise spending cycle strong</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $570.00–$585.00</li>
+      <li><strong>Action:</strong> <span class="action-watch">Buy / Add into weakness at $570-$585</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TSLA -->
+<section id="section-TSLA">
+  <h2>
+    <span class="ticker">TSLA</span>
+    <span class="company">Tesla Inc. (~$375.37)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="TSLA_1D_20260424_1648_annotated.png" alt="TSLA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $375.37 | <strong>Entry Zone:</strong> <span class="entry-zone">$340.00–$350.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Recent peak followed by rolling over</li>
+    <li>Lower highs forming on recent bounce</li>
+    <li>Oscillator showing mixed signals</li>
+    <li>Volatility elevated, trend uncertain</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>EV competition intensifying</li>
+    <li>Margin pressure from price cuts</li>
+    <li>Recent rally showing signs of fatigue</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $340.00–$350.00</li>
+      <li><strong>Action:</strong> <span class="action-risky">Reduce - Wait for major support at $340-$350</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- VEA -->
+<section id="section-VEA">
+  <h2>
+    <span class="ticker">VEA</span>
+    <span class="company">Vanguard FTSE Developed Markets ETF (~$68.40)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="VEA_1D_20260424_1648_annotated.png" alt="VEA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $68.40 | <strong>Entry Zone:</strong> <span class="entry-zone">$65.00–$67.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Developed markets trend intact but choppy</li>
+    <li>Oscillator not yet reset</li>
+    <li>Consolidation near resistance</li>
+    <li>Support established below</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>International stocks underperforming US</li>
+    <li>European economic growth slowing</li>
+    <li>Valuation cheaper than US markets</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $65.00–$67.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pullback to $65-$67</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- VWO -->
+<section id="section-VWO">
+  <h2>
+    <span class="ticker">VWO</span>
+    <span class="company">Vanguard FTSE Emerging Markets ETF (~$59.20)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="VWO_1D_20260424_1648_annotated.png" alt="VWO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $59.20 | <strong>Entry Zone:</strong> <span class="entry-zone">$55.00–$57.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Emerging markets struggling for direction</li>
+    <li>Oscillator weak and uncertain</li>
+    <li>No clear trend structure</li>
+    <li>Needs consolidation and confirmation</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>EM currencies under pressure from Fed policy</li>
+    <li>China growth concerns persist</li>
+    <li>Opportunities but timing uncertain</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $55.00–$57.00</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Avoid / Wait for better setup</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- VXUS -->
+<section id="section-VXUS">
+  <h2>
+    <span class="ticker">VXUS</span>
+    <span class="company">Vanguard Total International Stock ETF (~$82.54)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="VXUS_1D_20260424_1648_annotated.png" alt="VXUS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $82.54 | <strong>Entry Zone:</strong> <span class="entry-zone">$79.00–$81.00</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>International diversification play</li>
+    <li>Oscillator showing some strength not yet reset</li>
+    <li>Consolidation pattern forming</li>
+    <li>Support established</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>International exposure becoming attractive</li>
+    <li>Valuations lower than US peers</li>
+    <li>Currency headwinds moderating</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $79.00–$81.00</li>
+      <li><strong>Action:</strong> <span class="action-wait">Wait for pullback to $79-$81</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- WLTH -->
+<section id="section-WLTH">
+  <h2>
+    <span class="ticker">WLTH</span>
+    <span class="company">Commonwealth Wealth Advisors Trust (~$11.28)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="WLTH_1D_20260424_1648_annotated.png" alt="WLTH chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $11.28 | <strong>Entry Zone:</strong> <span class="entry-zone">$9.50–$10.50</span></p>
+  <h3>Technicals</h3>
+  <ul>
+    <li>Highly volatile and unstable</li>
+    <li>No clear trend or base structure</li>
+    <li>Oscillator erratic without pattern</li>
+    <li>Small cap liquidity concerns</li>
+  </ul>
+  <h3>News &amp; Fundamentals</h3>
+  <ul>
+    <li>Closed-end fund with potential discount</li>
+    <li>Limited information availability</li>
+    <li>Speculative positioning</li>
+  </ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Entry Zone:</strong> $9.50–$10.50</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Avoid - Insufficient data</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<footer>Stock Analysis Report — April 24, 2026 — 16:48 — AI-generated. Not financial advice.</footer>
+<script>
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  async function unlockPortfolio() {
+    const pwd = document.getElementById('lockPassword').value;
+    const hash = await sha256(pwd);
+    if (hash === '2597632105456d5d4057bdd50afb979bb770f730ea4532796680ace80e302d04') {
+      sessionStorage.setItem('portfolioAuth', 'true');
+      document.querySelector('.portfolio-assessment').classList.remove('locked');
+    } else {
+      document.getElementById('lockError').textContent = 'Incorrect password';
+      document.getElementById('lockPassword').value = '';
+    }
+  }
+  document.getElementById('lockPassword')?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') unlockPortfolio();
+  });
+  if (!sessionStorage.getItem('portfolioAuth')) {
+    const portSection = document.querySelector('.portfolio-assessment');
+    if (portSection) {
+      const lockBox = document.createElement('div');
+      lockBox.className = 'lock-box';
+      lockBox.innerHTML = `
+        <h2>🔒 Portfolio Access</h2>
+        <div class="lock-error" id="lockError"></div>
+        <input type="password" id="lockPassword" placeholder="Enter password" />
+        <button onclick="unlockPortfolio()">Unlock</button>
+      `;
+      portSection.classList.add('locked');
+      portSection.prepend(lockBox);
+      document.getElementById('lockPassword').focus();
+    }
+  }
+</script>
+</body>
+</html>
