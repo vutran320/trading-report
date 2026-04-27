@@ -797,7 +797,7 @@
   async function unlockPortfolio() {
     const pwd = document.getElementById('lockPassword').value;
     const hash = await sha256(pwd);
-    if (hash === 'UNKNOWN_HASH') {
+    if (hash === '2597632105456d5d4057bdd50afb979bb770f730ea4532796680ace80e302d04') {
       sessionStorage.setItem('portfolioAuth', 'true');
       closeLockModal();
       revealQty();
