@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stock Analysis — 2026-04-29 07:49</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0e0e0e; color: #d0d0d0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 24px; max-width: 1100px; margin: 0 auto; }
+    header { border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; margin-bottom: 32px; }
+    header h1 { font-size: 1.8rem; color: #e8e8e8; margin-bottom: 6px; }
+    .meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+    .meta span { background: #1a1a1a; border: 1px solid #2a2a2a; padding: 3px 10px; border-radius: 4px; font-size: 0.82rem; color: #aaa; }
+    .note { margin-top: 10px; font-size: 0.82rem; color: #666; font-style: italic; }
+    h2 { font-size: 1.25rem; color: #e8e8e8; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    h3 { font-size: 0.95rem; color: #bbb; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+    hr { border: none; border-top: 1px solid #1e1e1e; margin: 32px 0; }
+    .ticker { color: #7cb9f0; font-weight: 700; font-size: 1.3rem; }
+    .company { color: #aaa; font-weight: 400; font-size: 1rem; }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tag-watch { background: #003020; color: #66bb6a; border: 1px solid #1a5c30; }
+    .tag-wait  { background: #2a1d00; color: #f0c040; border: 1px solid #5a3d00; }
+    .tag-risky { background: #2a1000; color: #ff9800; border: 1px solid #6b2800; }
+    .tag-avoid { background: #2a0000; color: #ff6b6b; border: 1px solid #6b0000; }
+    .action-watch { color: #66bb6a; font-weight: 600; }
+    .action-wait  { color: #f0c040; font-weight: 600; }
+    .action-risky { color: #ff9800; font-weight: 600; }
+    .action-avoid { color: #ff6b6b; font-weight: 600; }
+    .chart-img { display: block; width: 100%; max-width: 900px; border-radius: 6px; border: 1px solid #2a2a2a; margin: 12px 0; }
+    ul { list-style: disc; padding-left: 20px; }
+    ul li { margin-bottom: 4px; color: #c0c0c0; }
+    .entry-zone { color: #7cb9f0; font-weight: 600; }
+    .assessment { background: #141414; border: 1px solid #2a2a2a; border-left: 3px solid #444; border-radius: 6px; padding: 14px 16px; margin-top: 14px; }
+    .assessment h3 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th { background: #1a1a1a; color: #aaa; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a2a; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em; }
+    td { padding: 9px 12px; border-bottom: 1px solid #1e1e1e; color: #c8c8c8; }
+    tr:hover td { background: #161616; }
+    td.entry-zone { color: #7cb9f0; }
+    .ticker-link { color: #7cb9f0; font-weight: 600; text-decoration: none; }
+    .ticker-link:hover { text-decoration: underline; }
+    .back-to-top { display: inline-flex; align-items: center; gap: 5px; margin: 6px 0 14px; padding: 4px 12px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; color: #777; font-size: 0.78rem; text-decoration: none; }
+    .back-to-top:hover { color: #aaa; border-color: #444; }
+    .port-summary { display: none; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .port-summary.unlocked { display: flex; }
+    .qty-cell { color: #555; font-style: italic; }
+    .qty-cell.unlocked { color: #c8c8c8; font-style: normal; }
+    .alloc-cell { color: #555; font-style: italic; }
+    .alloc-cell.unlocked { color: #888; font-style: normal; font-size: 0.85rem; }
+    .lock-inline { background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #555; padding: 0 4px; line-height: 1; vertical-align: middle; }
+    .lock-inline:hover { color: #aaa; }
+    .lock-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .lock-modal-overlay.active { display: flex; }
+    .lock-box { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 32px; max-width: 360px; width: 90%; }
+    .lock-box h2 { color: #e8e8e8; margin-bottom: 16px; text-align: center; font-size: 1.1rem; }
+    .lock-box input { width: 100%; padding: 10px 12px; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 4px; color: #d0d0d0; font-size: 1rem; margin-bottom: 16px; }
+    .lock-box button { width: 100%; padding: 10px 12px; background: #7cb9f0; color: #000; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+    .lock-box button:hover { background: #99ccff; }
+    .lock-error { color: #ff6b6b; font-size: 0.9rem; margin-top: -12px; margin-bottom: 12px; min-height: 20px; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #1e1e1e; color: #555; font-size: 0.8rem; text-align: center; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Stock Analysis Report</h1>
+  <div class="meta">
+    <span>Date: 2026-04-29</span>
+    <span>Time: 07:49</span>
+    <span>Timeframe: 1D</span>
+    <span>Tickers: AMD, AMZN, BE, DGRO, GLD, GOOG, HIMS, IREN, LLY, NVDA, SLV, SOFI, STX, TSLA, VEA, VWO, VXUS</span>
+  </div>
+  <p class="note">Analysis uses oscillators, Buy/Sell signal dots, and trendlines. Horizontal price lines and colored zones are excluded. Not financial advice.</p>
+</header>
+
+<!-- Per stock: (comment must immediately precede the section tag — used to generate the id) -->
+
+<div class="lock-modal-overlay" id="lockOverlay">
+  <div class="lock-box">
+    <h2>&#x1F512; Portfolio Access</h2>
+    <div class="lock-error" id="lockError"></div>
+    <input type="password" id="lockPassword" placeholder="Enter password" />
+    <button onclick="unlockPortfolio()">Unlock</button>
+  </div>
+</div>
+<section class="portfolio-assessment">
+  <h2>Portfolio Assessment <button class="lock-inline" id="lockToggle" title="Unlock Qty" onclick="openLockModal()">&#x1F512;</button></h2>
+  <div class="port-summary">
+    <div class="port-stat"><span class="stat-label">Balance</span><span class="stat-value">$390,187</span></div>
+    <div class="port-stat"><span class="stat-label">Cash</span><span class="stat-value">$224,304</span></div>
+    <div class="port-stat"><span class="stat-label">Cash %</span><span class="stat-value">57.5%</span></div>
+    <div class="port-stat"><span class="stat-label">Invested</span><span class="stat-value">$165,883</span></div>
+    <div class="port-stat"><span class="stat-label">Positions</span><span class="stat-value">17</span></div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Ticker</th><th>Qty</th><th>% Alloc</th><th>Chart Rating</th><th>Entry Zone</th><th>Action</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMD">AMD</a></td>
+        <td class="qty-cell" data-qty="40.0">***</td>
+        <td class="alloc-cell" data-alloc="3.4%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$260–280</td>
+        <td class="rec-reduce">With a 3.4% allocation, consider taking partial profits to lock in gains. Do not add to the position at these levels; wait for a technical retest of the previous breakout structure.</td>
+        <td>Small position (3.37%), currently flagged as high risk.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-BE">BE</a></td>
+        <td class="qty-cell" data-qty="15.0">***</td>
+        <td class="alloc-cell" data-alloc="1.1%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$120–140</td>
+        <td class="rec-reduce">Given the 1.1% allocation, consider taking partial profits to lock in gains from the recent vertical move, as the current risk-to-reward ratio is unfavorable for adding new positions.</td>
+        <td>Small position (1.08%), high risk rating suggests caution.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GOOG">GOOG</a></td>
+        <td class="qty-cell" data-qty="50.0">***</td>
+        <td class="alloc-cell" data-alloc="4.5%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$310–330</td>
+        <td class="rec-reduce">Hold the current 4.5% allocation. Do not add more shares at this level due to overbought conditions. Consider trimming slightly if the RSI crosses back below 70 to lock in recent gains.</td>
+        <td>Small position (4.52%), rated high risk at current levels.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-NVDA">NVDA</a></td>
+        <td class="qty-cell" data-qty="25.0">***</td>
+        <td class="alloc-cell" data-alloc="1.4%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$170–180</td>
+        <td class="rec-reduce">Hold current 1.4% position. Do not add at these levels; consider taking partial profits if the RSI fails to hold above 70 or if a bearish crossover occurs on the oscillator.</td>
+        <td>Small position (1.35%), high risk rating noted.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-STX">STX</a></td>
+        <td class="qty-cell" data-qty="18.0">***</td>
+        <td class="alloc-cell" data-alloc="3.0%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$560–600</td>
+        <td class="rec-reduce">Hold current 3.0% position. Do not add at these levels. Consider taking partial profits if the RSI crossover signals a bearish turn to lock in gains from the current rally.</td>
+        <td>Small position (3.05%), flagged as high risk.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMZN">AMZN</a></td>
+        <td class="qty-cell" data-qty="0.0">***</td>
+        <td class="alloc-cell" data-alloc="0.0%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$245.00–255.00</td>
+        <td class="rec-reduce">With 0.0% current allocation, do not chase the current peak. Wait for a cooling-off period or a dip toward $250 to initiate a starter position.</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-IREN">IREN</a></td>
+        <td class="qty-cell" data-qty="100.0">***</td>
+        <td class="alloc-cell" data-alloc="1.1%">***</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">$32.00–36.00</td>
+        <td class="rec-exit">Hold current 1.1% allocation. The position is small enough to weather volatility, but adding here is not recommended given the bearish oscillator crossover and rejection at resistance.</td>
+        <td>Small position (1.11%), chart not ready for expansion.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SOFI">SOFI</a></td>
+        <td class="qty-cell" data-qty="450.0">***</td>
+        <td class="alloc-cell" data-alloc="1.8%">***</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">$14.50–15.50</td>
+        <td class="rec-exit">Hold current 1.8% allocation. Do not add to the position until the RSI shows a clear bullish reversal and the price establishes a higher low above the diagonal trendline.</td>
+        <td>Small position (1.85%), wait for improved technical rating.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-DGRO">DGRO</a></td>
+        <td class="qty-cell" data-qty="97.0">***</td>
+        <td class="alloc-cell" data-alloc="1.8%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$70.00–71.50</td>
+        <td class="rec-hold">Hold current 1.8% allocation. Do not add at current levels; wait for the RSI to reset or for a retest of the previous support zone before increasing position size.</td>
+        <td>Small position (1.80%), wait for better trend alignment.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GLD">GLD</a></td>
+        <td class="qty-cell" data-qty="25.0">***</td>
+        <td class="alloc-cell" data-alloc="2.7%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$380–400</td>
+        <td class="rec-hold">Hold current 2.7% allocation. Do not add to the position until the RSI shows a bullish crossover and the price establishes a higher low.</td>
+        <td>Small position (2.67%), wait for price confirmation.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SLV">SLV</a></td>
+        <td class="qty-cell" data-qty="150.0">***</td>
+        <td class="alloc-cell" data-alloc="2.5%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$52.00–56.00</td>
+        <td class="rec-hold">Hold current 2.5% allocation. Do not add to the position until the price stabilizes above the broken trendline or shows a clear reversal signal, as the current momentum remains unfavorable.</td>
+        <td>Small position (2.50%), maintain current stance.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VEA">VEA</a></td>
+        <td class="qty-cell" data-qty="148.0">***</td>
+        <td class="alloc-cell" data-alloc="2.6%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$62–64</td>
+        <td class="rec-hold">Hold the current 2.6% allocation (148.0 shares) and wait for clearer bullish reversal signals or a lower, more confirmed entry point, as the chart currently indicates bearish momentum.</td>
+        <td>Small position (2.56%) in developed markets.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VWO">VWO</a></td>
+        <td class="qty-cell" data-qty="700.0">***</td>
+        <td class="alloc-cell" data-alloc="10.4%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$54.50 – 56.00</td>
+        <td class="rec-hold">With a 10.4% allocation, the position is already significant. Recommend holding current shares and avoiding new purchases at this price level to prevent overexposure near local highs. Look to add only on a meaningful correction to the $54.00-$55.00 zone.</td>
+        <td>Moderate position (10.45%), the portfolio's largest single allocation.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VXUS">VXUS</a></td>
+        <td class="qty-cell" data-qty="150.0">***</td>
+        <td class="alloc-cell" data-alloc="3.1%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$76.00–78.00</td>
+        <td class="rec-hold">Hold current 3.1% allocation. Given the neutral RSI and recent 'Sell' signal, avoid adding at current levels. Wait for a clearer entry signal or a pullback to support levels before increasing exposure.</td>
+        <td>Small position (3.13%), diversified international exposure.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-HIMS">HIMS</a></td>
+        <td class="qty-cell" data-qty="100.0">***</td>
+        <td class="alloc-cell" data-alloc="0.7%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$20.00–22.00</td>
+        <td class="rec-hold">Hold current 0.7% position. Do not add to the position until the price stabilizes above the trendline or shows a clear reversal signal on the RSI.</td>
+        <td>Small position (0.69%), waiting for setup.</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-LLY">LLY</a></td>
+        <td class="qty-cell" data-qty="0.0">***</td>
+        <td class="alloc-cell" data-alloc="0.0%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$800–825</td>
+        <td class="rec-hold">Maintain 0% allocation and wait for a confirmed reversal signal, as the current momentum is bearish.</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-TSLA">TSLA</a></td>
+        <td class="qty-cell" data-qty="20.0">***</td>
+        <td class="alloc-cell" data-alloc="1.9%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$340–350</td>
+        <td class="rec-hold">Hold current 1.9% position. Avoid adding to the position until a clear bullish signal (RSI crossover or support bounce) is confirmed, as the current price action is indecisive.</td>
+        <td>Small position (1.91%), wait for clearer trend.</td>
+      </tr></tbody>
+  </table>
+  <div class="port-notes">
+    <h3>Key Risks</h3>
+    <ul><li>High cash drag with 57.5% of the portfolio uninvested during market moves</li><li>Significant concentration in 'HIGH RISK' rated stocks including AMD, STX, BE, NVDA, and GOOG</li><li>Exposure to volatile emerging markets via VWO is the largest single holding</li></ul>
+    <h3>Action Items</h3>
+    <ul><li>Review 'HIGH RISK' positions for potential profit-taking or stop-loss placement</li><li>Monitor 'NOT YET' rated stocks IREN and SOFI for improved entry setups</li><li>Develop a plan to deploy excess cash into 'WAIT' rated ETFs as technicals improve</li></ul>
+  </div>
+</section>
+<hr />
+<!-- TICKER -->
+<section id="section-AMD">
+  <h2>
+    <span class="ticker">AMD</span>
+    <span class="company">Advanced Micro Devices, Inc. (~$328.57)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="AMD_1D_20260429_0730_annotated.png" alt="AMD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$328.57 | <strong>Entry Zone:</strong> <span class="entry-zone">$260–280</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently in a parabolic vertical ascent, significantly extended from the previous diagonal trendline support.</li><li>RSI is at 79.75, indicating extreme overbought conditions.</li><li>The purple/orange RSI lines are currently intertwined at the top, suggesting a potential loss of momentum.</li><li>The most recent Buy signal occurred significantly lower; no new Buy signals have been generated during this recent surge.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>AMD is a primary beneficiary of the AI infrastructure and data center spending boom.</li><li>High valuation multiples reflect aggressive growth expectations, making the stock sensitive to any earnings misses or macroeconomic shifts.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a pullback to the 260-280 range or a consolidation phase that allows the RSI to cool down below 60.</li>
+      <li><strong>Risk:</strong> High risk of a sharp mean-reversion correction due to the parabolic nature of the current price action and extreme overbought RSI levels.</li>
+      <li><strong>Action:</strong> <span class="action-risky">With a 3.4% allocation, consider taking partial profits to lock in gains. Do not add to the position at these levels; wait for a technical retest of the previous breakout structure.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-AMZN">
+  <h2>
+    <span class="ticker">AMZN</span>
+    <span class="company">Amazon.com, Inc. (~$265.21)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="AMZN_1D_20260429_0730_annotated.png" alt="AMZN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$265.21 | <strong>Entry Zone:</strong> <span class="entry-zone">$245.00–255.00</span></p>
+  <h3>Technicals</h3>
+  <ul><li>RSI is currently in overbought territory at 77.53, suggesting the stock is overextended in the short term.</li><li>Price has successfully broken out above the long-term grey resistance trendline, turning it into potential support.</li><li>The stock is currently in a parabolic move, significantly distanced from the long-term red support trendline.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Strong growth in AWS (Amazon Web Services) continues to drive high-margin profitability.</li><li>Robust advertising revenue and logistics efficiencies are supporting overall margin expansion.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retest of the $250-$255 breakout zone to confirm support.</li>
+      <li><strong>Risk:</strong> High risk of a technical pullback or 'mean reversion' due to the extreme RSI levels and vertical price action.</li>
+      <li><strong>Action:</strong> <span class="action-risky">With 0.0% current allocation, do not chase the current peak. Wait for a cooling-off period or a dip toward $250 to initiate a starter position.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-BE">
+  <h2>
+    <span class="ticker">BE</span>
+    <span class="company">Bloom Energy Corporation (~$280.46)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="BE_1D_20260429_0730_annotated.png" alt="BE chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$280.46 | <strong>Entry Zone:</strong> <span class="entry-zone">$120–140</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently trading significantly above the established upward diagonal trend channel, indicating an overextended move.</li><li>RSI is at 82.49, deep in overbought territory, suggesting a potential pullback or consolidation.</li><li>The purple RSI line is well above the orange signal line, confirming strong momentum but increasing the risk of a mean reversion.</li><li>The stock has broken out of its previous trend structure, which often precedes a period of volatility or profit-taking.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>The stock has experienced a massive vertical rally, likely driven by speculative momentum rather than fundamental support at these levels.</li><li>Earnings events (marked by 'E') have historically triggered volatility; the current price level reflects high market expectations.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retest of the upper trendline or a consolidation back toward the 140-160 range.</li>
+      <li><strong>Risk:</strong> High risk of a sharp correction due to extreme overbought conditions and the price being detached from the established trend channel.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Given the 1.1% allocation, consider taking partial profits to lock in gains from the recent vertical move, as the current risk-to-reward ratio is unfavorable for adding new positions.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-DGRO">
+  <h2>
+    <span class="ticker">DGRO</span>
+    <span class="company">iShares Core Dividend Growth ETF (~$72.55)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="DGRO_1D_20260429_0730_annotated.png" alt="DGRO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$72.55 | <strong>Entry Zone:</strong> <span class="entry-zone">$70.00–71.50</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently testing recent highs, showing signs of consolidation near the 73.00 resistance level.</li><li>The RSI (purple line) has recently crossed below the orange signal line, indicating weakening momentum.</li><li>The most recent 'Buy' signal occurred at a lower price point, and the current price is extended from that entry.</li><li>The overall trend remains bullish, but the current proximity to the recent peak suggests a potential pullback.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>DGRO provides exposure to U.S. companies with a history of growing dividends, generally considered a defensive play.</li><li>As an ETF, it is less susceptible to single-company volatility but highly sensitive to broader market interest rate expectations and economic growth.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a pullback toward the 70.00-71.00 support area where the previous 'Buy' signal was generated.</li>
+      <li><strong>Risk:</strong> Moderate; the asset is currently overextended in the short term, increasing the risk of a mean-reversion toward the 50-day moving average area.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold current 1.8% allocation. Do not add at current levels; wait for the RSI to reset or for a retest of the previous support zone before increasing position size.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-GLD">
+  <h2>
+    <span class="ticker">GLD</span>
+    <span class="company">SPDR Gold Shares (~$416.17)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="GLD_1D_20260429_0730_annotated.png" alt="GLD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$416.17 | <strong>Entry Zone:</strong> <span class="entry-zone">$380–400</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently in a corrective phase after failing to sustain highs near 500.</li><li>RSI indicator shows the purple line is trending downward and has not yet confirmed a bullish crossover above the orange line.</li><li>Recent price action shows a series of lower highs, indicating a short-term bearish trend structure.</li><li>The most recent signal on the chart is a 'Sell' indicator, suggesting downward momentum is still present.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>GLD tracks the price of physical gold, which is highly sensitive to real interest rates and central bank policy.</li><li>Gold often acts as a hedge against geopolitical instability, but current technicals suggest a cooling off period after a significant rally.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Look for a stabilization near the 380-400 support area or a clear bullish crossover on the RSI.</li>
+      <li><strong>Risk:</strong> Moderate to High; the asset is currently in a downtrend and lacks a clear reversal signal.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold current 2.7% allocation. Do not add to the position until the RSI shows a bullish crossover and the price establishes a higher low.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-GOOG">
+  <h2>
+    <span class="ticker">GOOG</span>
+    <span class="company">Alphabet Inc. (~$352.68)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="GOOG_1D_20260429_0730_annotated.png" alt="GOOG chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$352.68 | <strong>Entry Zone:</strong> <span class="entry-zone">$310–330</span></p>
+  <h3>Technicals</h3>
+  <ul><li>RSI is currently in overbought territory at 78.88, suggesting the stock is due for a correction or consolidation.</li><li>Price is significantly extended above the primary diagonal support trendlines.</li><li>The current price action is near a vertical peak, far from the last 'Buy' signal triggered around the $315 level.</li><li>The purple RSI line is well above the orange signal line, indicating extreme momentum that often precedes a pullback.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Alphabet continues to benefit from strong earnings and positive sentiment surrounding AI integration (Gemini).</li><li>Dominance in search and YouTube advertising remains a core fundamental strength.</li><li>Cloud division growth is a key driver for recent valuation expansion.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retracement to the $320-$330 range where diagonal support and previous consolidation meet.</li>
+      <li><strong>Risk:</strong> High short-term risk of a 'mean reversion' move given the overextended RSI and distance from trendline support.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Hold the current 4.5% allocation. Do not add more shares at this level due to overbought conditions. Consider trimming slightly if the RSI crosses back below 70 to lock in recent gains.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-HIMS">
+  <h2>
+    <span class="ticker">HIMS</span>
+    <span class="company">Hims & Hers Health, Inc. (~$26.76)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="HIMS_1D_20260429_0730_annotated.png" alt="HIMS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$26.76 | <strong>Entry Zone:</strong> <span class="entry-zone">$20.00–22.00</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently pulling back from a recent breakout above the long-term diagonal downtrend resistance line.</li><li>RSI shows a bearish crossover with the purple line dipping below the orange line, suggesting weakening momentum.</li><li>Recent 'Sell' signal dot indicates potential short-term exhaustion after the rally from the $16.00 lows.</li><li>Trend structure remains volatile; the stock is currently retesting the breakout area.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Earnings events (marked by 'E' icons) have historically triggered significant volatility.</li><li>The stock is currently trading in a recovery phase following a prolonged downtrend throughout 2025.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retest of the breakout trendline near $22.00 or a bullish RSI crossover.</li>
+      <li><strong>Risk:</strong> High; the stock is prone to sharp reversals and is currently showing signs of a short-term cooling-off period.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold current 0.7% position. Do not add to the position until the price stabilizes above the trendline or shows a clear reversal signal on the RSI.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-IREN">
+  <h2>
+    <span class="ticker">IREN</span>
+    <span class="company">Iris Energy Limited (~$43.47)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="IREN_1D_20260429_0730_annotated.png" alt="IREN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$43.47 | <strong>Entry Zone:</strong> <span class="entry-zone">$32.00–36.00</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price recently rejected off the primary descending trendline resistance near $52.</li><li>The oscillator purple line has crossed below the orange line, indicating a shift toward bearish momentum.</li><li>A 'Sell' signal dot appeared at the recent local peak, suggesting further downside or consolidation.</li><li>The chart is forming a large descending wedge pattern, with the current price sitting in the middle of the range.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>High correlation with Bitcoin price volatility and market sentiment toward crypto miners.</li><li>Company is pivoting toward AI and High-Performance Computing (HPC) data center expansion.</li><li>Recent earnings and operational updates show aggressive hash rate growth targets.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retest of the lower support trendline near $34.00 or a confirmed breakout above the $50.00 resistance level.</li>
+      <li><strong>Risk:</strong> High volatility asset; risk of a breakdown below the wedge support which could lead to a significant correction toward $20.00.</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Hold current 1.1% allocation. The position is small enough to weather volatility, but adding here is not recommended given the bearish oscillator crossover and rejection at resistance.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-LLY">
+  <h2>
+    <span class="ticker">LLY</span>
+    <span class="company">Eli Lilly and Company (~$857.27)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="LLY_1D_20260429_0730_annotated.png" alt="LLY chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$857.27 | <strong>Entry Zone:</strong> <span class="entry-zone">$800–825</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is in a clear short-term downtrend, breaking below previous support levels.</li><li>The RSI purple line is trending downward and is currently below the orange signal line, indicating bearish momentum.</li><li>Recent 'Sell' signal dots dominate the chart, suggesting continued selling pressure.</li><li>The stock has failed to hold higher support levels, indicating a potential test of lower price zones.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>LLY is a major player in the GLP-1 weight loss drug market, which remains highly competitive.</li><li>High valuation multiples often lead to significant volatility during market corrections or sector rotations.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a stabilization near the 800 level or a bullish crossover on the RSI indicator.</li>
+      <li><strong>Risk:</strong> High; the stock is currently in a downward trend with no clear signs of a reversal or bottoming pattern.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Maintain 0% allocation and wait for a confirmed reversal signal, as the current momentum is bearish.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-NVDA">
+  <h2>
+    <span class="ticker">NVDA</span>
+    <span class="company">NVIDIA Corporation (~$211.32)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="NVDA_1D_20260429_0730_annotated.png" alt="NVDA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$211.32 | <strong>Entry Zone:</strong> <span class="entry-zone">$170–180</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently extended above the long-term diagonal trendline, indicating a potential overextension.</li><li>RSI is in overbought territory (above 70), suggesting a potential pullback or consolidation.</li><li>Recent price action shows a strong breakout, but the lack of a retest of the trendline increases risk.</li><li>Buy/Sell signals have been mixed recently, with the latest signals showing a transition from buy to neutral/sell pressure.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>NVIDIA remains a leader in the AI hardware space, driving significant market momentum.</li><li>High valuation multiples require consistent earnings beats to justify current price levels.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retest of the broken diagonal trendline near the 170-180 range.</li>
+      <li><strong>Risk:</strong> High, due to the RSI being overbought and the price being significantly detached from the established trendline.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Hold current 1.4% position. Do not add at these levels; consider taking partial profits if the RSI fails to hold above 70 or if a bearish crossover occurs on the oscillator.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-SLV">
+  <h2>
+    <span class="ticker">SLV</span>
+    <span class="company">iShares Silver Trust (~$64.93)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="SLV_1D_20260429_0730_annotated.png" alt="SLV chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$64.93 | <strong>Entry Zone:</strong> <span class="entry-zone">$52.00–56.00</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently trading below the primary long-term diagonal trendline, indicating a breakdown in the established bullish structure.</li><li>The RSI shows the purple line below the orange line, suggesting bearish momentum is still present.</li><li>Recent price action shows a series of lower highs following the peak, confirming a corrective phase.</li><li>The most recent signal dot on the chart is a 'Sell' indicator, reinforcing the lack of immediate bullish confirmation.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>SLV is a commodity-backed ETF tracking the spot price of silver, highly sensitive to macroeconomic factors like interest rates and dollar strength.</li><li>Silver often experiences high volatility; current price action reflects a cooling off after an aggressive rally to the $100+ level.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Look for a retest of the major diagonal support line near the $52-$56 range or a bullish crossover of the RSI lines.</li>
+      <li><strong>Risk:</strong> High; the asset has broken its long-term trendline and is currently in a downtrend with no clear bottoming pattern established.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold current 2.5% allocation. Do not add to the position until the price stabilizes above the broken trendline or shows a clear reversal signal, as the current momentum remains unfavorable.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-SOFI">
+  <h2>
+    <span class="ticker">SOFI</span>
+    <span class="company">SoFi Technologies, Inc. (~$16.0)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="SOFI_1D_20260429_0730_annotated.png" alt="SOFI chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$16.0 | <strong>Entry Zone:</strong> <span class="entry-zone">$14.50–15.50</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently testing a long-term diagonal support trendline.</li><li>Recent 'Sell' signal dot indicates bearish momentum following a short-term recovery.</li><li>RSI shows a bearish crossover with the purple line dipping below the orange line, suggesting weakening momentum.</li><li>Trend structure remains in a broader downtrend despite the recent attempt to hold the diagonal support.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>SoFi is a growth-oriented fintech company sensitive to interest rate environments.</li><li>Earnings reports (marked by 'E' icons) have historically triggered significant volatility.</li><li>The stock is currently trading near a critical psychological and technical support level at $16.00.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a confirmed bounce off the diagonal trendline or a bullish RSI crossover.</li>
+      <li><strong>Risk:</strong> High; failure to hold the current diagonal support could lead to a retest of lower support levels.</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Hold current 1.8% allocation. Do not add to the position until the RSI shows a clear bullish reversal and the price establishes a higher low above the diagonal trendline.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-STX">
+  <h2>
+    <span class="ticker">STX</span>
+    <span class="company">Seagate Technology Holdings plc (~$661.0)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="STX_1D_20260429_0730_annotated.png" alt="STX chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$661.0 | <strong>Entry Zone:</strong> <span class="entry-zone">$560–600</span></p>
+  <h3>Technicals</h3>
+  <ul><li>The stock is in a strong parabolic uptrend, significantly extended from the recent consolidation base.</li><li>RSI is at 83.38, indicating extreme overbought conditions, which historically precedes a pullback or consolidation.</li><li>The most recent 'Buy' signals occurred much lower; current price action lacks a fresh entry trigger.</li><li>The purple/orange RSI lines are diverging at high levels, suggesting waning momentum.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>STX is a major player in the data storage and HDD market, benefiting from AI-driven demand for high-capacity storage.</li><li>The stock has experienced a massive vertical move, likely driven by speculative momentum rather than immediate fundamental shifts.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a pullback to the 560-600 range or a consolidation that allows the RSI to cool down below 70.</li>
+      <li><strong>Risk:</strong> High risk of a sharp mean-reversion due to the extreme overbought RSI and parabolic price extension.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Hold current 3.0% position. Do not add at these levels. Consider taking partial profits if the RSI crossover signals a bearish turn to lock in gains from the current rally.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-TSLA">
+  <h2>
+    <span class="ticker">TSLA</span>
+    <span class="company">Tesla, Inc. (~$373.08)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="TSLA_1D_20260429_0730_annotated.png" alt="TSLA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$373.08 | <strong>Entry Zone:</strong> <span class="entry-zone">$340–350</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently consolidating in the middle of the recent range, lacking clear directional momentum.</li><li>RSI shows the purple line hovering near the 50 level, indicating a neutral trend without a clear crossover signal.</li><li>The most recent 'Buy' signal occurred at a lower price point, and the stock is currently trading below recent local highs.</li><li>The diagonal trendline support established earlier in the year has been broken, suggesting a shift in momentum.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Tesla faces ongoing pressure from competitive EV pricing and margin compression concerns.</li><li>Market sentiment remains sensitive to interest rate expectations and broader macroeconomic volatility affecting high-growth tech stocks.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Look for a retest of the 340-350 support area or a bullish RSI crossover.</li>
+      <li><strong>Risk:</strong> Moderate to High; the stock is currently in a corrective phase after failing to sustain higher levels.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold current 1.9% position. Avoid adding to the position until a clear bullish signal (RSI crossover or support bounce) is confirmed, as the current price action is indecisive.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-VEA">
+  <h2>
+    <span class="ticker">VEA</span>
+    <span class="company">VEA (~$67.39)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="VEA_1D_20260429_0730_annotated.png" alt="VEA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$67.39 | <strong>Entry Zone:</strong> <span class="entry-zone">$62–64</span></p>
+  <h3>Technicals</h3>
+  <ul><li>The current price of VEA is $67.39, showing a recent decline from highs around $70.00.</li><li>A 'Sell' signal is visible on the main chart near the current price level.</li><li>The Relative Strength Index (RSI) purple line (47.98) is currently below its orange signal line (57.03), and both are trending downwards, indicating bearish momentum.</li><li>The price has been in an overall uptrend since May 2025 but has experienced a significant pullback since late March 2026.</li><li>A previous 'Buy' signal was observed around the $63.00 level in late March 2026.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>No news or financial data is visible in the chart.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Around $62-$64, or upon a clear bullish reversal signal in the RSI.</li>
+      <li><strong>Risk:</strong> Moderate to high risk of further price decline given the recent 'Sell' signal and the downward trend in both price and RSI.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold the current 2.6% allocation (148.0 shares) and wait for clearer bullish reversal signals or a lower, more confirmed entry point, as the chart currently indicates bearish momentum.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-VWO">
+  <h2>
+    <span class="ticker">VWO</span>
+    <span class="company">Vanguard FTSE Emerging Markets ETF (~$58.24)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="VWO_1D_20260429_0730_annotated.png" alt="VWO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$58.24 | <strong>Entry Zone:</strong> <span class="entry-zone">$54.50 – 56.00</span></p>
+  <h3>Technicals</h3>
+  <ul><li>The chart shows a sustained long-term uptrend characterized by higher highs and higher lows since late 2023.</li><li>RSI is currently neutral at 56.88, indicating the asset is neither overbought nor oversold after a recent cooling period.</li><li>Price is currently consolidating near the $58.00-$59.00 range, which has acted as a recent ceiling.</li><li>The last 'Buy' signal occurred near $53.00, and the price is currently extended approximately 10% from that signal.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>VWO tracks emerging market equities, making it highly sensitive to US Dollar strength and global interest rate shifts.</li><li>Significant exposure to China, Taiwan, and India means regional geopolitical stability is a primary driver of volatility.</li><li>As an ETF, it offers high liquidity and a very low expense ratio (0.08%), suitable for core portfolio positioning.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a pullback to the diagonal support trendline near $55.50 or a confirmed breakout above $59.20.</li>
+      <li><strong>Risk:</strong> Downside risk includes a strengthening USD or a slowdown in Chinese economic recovery, which could trigger a retest of the $53.00 support level.</li>
+      <li><strong>Action:</strong> <span class="action-wait">With a 10.4% allocation, the position is already significant. Recommend holding current shares and avoiding new purchases at this price level to prevent overexposure near local highs. Look to add only on a meaningful correction to the $54.00-$55.00 zone.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+<!-- TICKER -->
+<section id="section-VXUS">
+  <h2>
+    <span class="ticker">VXUS</span>
+    <span class="company">Vanguard Total International Stock ETF (~$81.52)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="VXUS_1D_20260429_0730_annotated.png" alt="VXUS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$81.52 | <strong>Entry Zone:</strong> <span class="entry-zone">$76.00–78.00</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently near recent highs, showing signs of consolidation after a strong uptrend.</li><li>RSI is neutral at 50.45, with the purple line hovering near the orange signal line, indicating lack of strong momentum in either direction.</li><li>Recent price action shows a 'Sell' signal dot near the current level, suggesting potential short-term resistance.</li><li>The trend structure remains bullish, but the asset is extended from the major diagonal support trendline.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>VXUS provides broad exposure to international markets, making it sensitive to global economic growth and currency fluctuations.</li><li>As an ETF, it is generally considered a lower-risk, long-term holding compared to individual stocks, but it is currently subject to global macroeconomic headwinds.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Look for a pullback toward the 76.00-78.00 range where the asset previously found support and where the RSI may reach oversold conditions.</li>
+      <li><strong>Risk:</strong> Moderate; the asset is currently trading near the top of its recent range, increasing the risk of a short-term correction.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold current 3.1% allocation. Given the neutral RSI and recent 'Sell' signal, avoid adding at current levels. Wait for a clearer entry signal or a pullback to support levels before increasing exposure.</span></li>
+    </ul>
+  </div>
+</section>
+<hr /><footer>Stock Analysis Report &mdash; [Date] &mdash; [Time] &mdash; AI-generated. Not financial advice.</footer>
+<script>
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  function revealQty() {
+    document.querySelector('.port-summary').classList.add('unlocked');
+    document.querySelectorAll('.qty-cell').forEach(td => {
+      td.textContent = td.dataset.qty;
+      td.classList.add('unlocked');
+    });
+    document.querySelectorAll('.alloc-cell').forEach(td => {
+      td.textContent = td.dataset.alloc;
+      td.classList.add('unlocked');
+    });
+    const btn = document.getElementById('lockToggle');
+    btn.innerHTML = '&#x1F513;';
+    btn.title = 'Lock Qty';
+    btn.onclick = lockQty;
+  }
+  function lockQty() {
+    document.querySelector('.port-summary').classList.remove('unlocked');
+    document.querySelectorAll('.qty-cell').forEach(td => {
+      td.textContent = '***';
+      td.classList.remove('unlocked');
+    });
+    document.querySelectorAll('.alloc-cell').forEach(td => {
+      td.textContent = '***';
+      td.classList.remove('unlocked');
+    });
+    sessionStorage.removeItem('portfolioAuth');
+    const btn = document.getElementById('lockToggle');
+    btn.innerHTML = '&#x1F512;';
+    btn.title = 'Unlock Qty';
+    btn.onclick = openLockModal;
+  }
+  function openLockModal() {
+    document.getElementById('lockOverlay').classList.add('active');
+    document.getElementById('lockPassword').value = '';
+    document.getElementById('lockError').textContent = '';
+    document.getElementById('lockPassword').focus();
+  }
+  function closeLockModal() {
+    document.getElementById('lockOverlay').classList.remove('active');
+  }
+  async function unlockPortfolio() {
+    const pwd = document.getElementById('lockPassword').value;
+    const hash = await sha256(pwd);
+    if (hash === '2597632105456d5d4057bdd50afb979bb770f730ea4532796680ace80e302d04') {
+      sessionStorage.setItem('portfolioAuth', 'true');
+      closeLockModal();
+      revealQty();
+    } else {
+      document.getElementById('lockError').textContent = 'Incorrect password';
+      document.getElementById('lockPassword').value = '';
+      document.getElementById('lockPassword').focus();
+    }
+  }
+  document.getElementById('lockPassword').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') unlockPortfolio();
+  });
+  document.getElementById('lockOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lockOverlay')) closeLockModal();
+  });
+  if (sessionStorage.getItem('portfolioAuth')) {
+    revealQty();
+  }
+</script>
+</body>
+</html>
