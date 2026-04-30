@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    if (!localStorage.getItem('google_auth_token')) {
+      window.location.href = '../../index.html';
+    }
+  </script>
   <meta charset="UTF-8" />
   <title>Stock Analysis — 2026-04-29 07:49</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #0e0e0e; color: #d0d0d0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 24px; max-width: 1100px; margin: 0 auto; }
-    header { border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; margin-bottom: 32px; }
+        header { border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-start; }
+    .logout-btn { background: #1a1a1a; border: 1px solid #2a2a2a; color: #777; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+    .logout-btn:hover { color: #fff; border-color: #444; }
     header h1 { font-size: 1.8rem; color: #e8e8e8; margin-bottom: 6px; }
     .meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
     .meta span { background: #1a1a1a; border: 1px solid #2a2a2a; padding: 3px 10px; border-radius: 4px; font-size: 0.82rem; color: #aaa; }
@@ -61,7 +68,8 @@
 </head>
 <body>
 <header>
-  <h1>Stock Analysis Report</h1>
+  <div>
+    <h1>Stock Analysis Report</h1>
   <div class="meta">
     <span>Date: 2026-04-29</span>
     <span>Time: 07:49</span>
@@ -69,7 +77,16 @@
     <span>Tickers: AMD, AMZN, BE, DGRO, GLD, GOOG, HIMS, IREN, LLY, NVDA, SLV, SOFI, STX, TSLA, VEA, VWO, VXUS</span>
   </div>
   <p class="note">Analysis uses oscillators, Buy/Sell signal dots, and trendlines. Horizontal price lines and colored zones are excluded. Not financial advice.</p>
+  </div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
+
+<script>
+  function logout() {
+    localStorage.removeItem('google_auth_token');
+    window.location.href = '../../index.html';
+  }
+</script>
 
 <!-- Per stock: (comment must immediately precede the section tag — used to generate the id) -->
 
