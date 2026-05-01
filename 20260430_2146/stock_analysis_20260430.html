@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stock Analysis — 2026-04-30 22:00</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0e0e0e; color: #d0d0d0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; line-height: 1.6; padding: 24px; max-width: 1100px; margin: 0 auto; }
+    header { border-bottom: 1px solid #2a2a2a; padding-bottom: 20px; margin-bottom: 32px; }
+    header h1 { font-size: 1.8rem; color: #e8e8e8; margin-bottom: 6px; }
+    .meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+    .meta span { background: #1a1a1a; border: 1px solid #2a2a2a; padding: 3px 10px; border-radius: 4px; font-size: 0.82rem; color: #aaa; }
+    .note { margin-top: 10px; font-size: 0.82rem; color: #666; font-style: italic; }
+    h2 { font-size: 1.25rem; color: #e8e8e8; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    h3 { font-size: 0.95rem; color: #bbb; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+    hr { border: none; border-top: 1px solid #1e1e1e; margin: 32px 0; }
+    .ticker { color: #7cb9f0; font-weight: 700; font-size: 1.3rem; }
+    .company { color: #aaa; font-weight: 400; font-size: 1rem; }
+    .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .tag-watch { background: #003020; color: #66bb6a; border: 1px solid #1a5c30; }
+    .tag-wait  { background: #2a1d00; color: #f0c040; border: 1px solid #5a3d00; }
+    .tag-risky { background: #2a1000; color: #ff9800; border: 1px solid #6b2800; }
+    .tag-avoid { background: #2a0000; color: #ff6b6b; border: 1px solid #6b0000; }
+    .action-watch { color: #66bb6a; font-weight: 600; }
+    .action-wait  { color: #f0c040; font-weight: 600; }
+    .action-risky { color: #ff9800; font-weight: 600; }
+    .action-avoid { color: #ff6b6b; font-weight: 600; }
+    .chart-img { display: block; width: 100%; max-width: 900px; border-radius: 6px; border: 1px solid #2a2a2a; margin: 12px 0; }
+    ul { list-style: disc; padding-left: 20px; }
+    ul li { margin-bottom: 4px; color: #c0c0c0; }
+    .entry-zone { color: #7cb9f0; font-weight: 600; }
+    .assessment { background: #141414; border: 1px solid #2a2a2a; border-left: 3px solid #444; border-radius: 6px; padding: 14px 16px; margin-top: 14px; }
+    .assessment h3 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th { background: #1a1a1a; color: #aaa; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a2a; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em; }
+    td { padding: 9px 12px; border-bottom: 1px solid #1e1e1e; color: #c8c8c8; }
+    tr:hover td { background: #161616; }
+    td.entry-zone { color: #7cb9f0; }
+    .ticker-link { color: #7cb9f0; font-weight: 600; text-decoration: none; }
+    .ticker-link:hover { text-decoration: underline; }
+    .back-to-top { display: inline-flex; align-items: center; gap: 5px; margin: 6px 0 14px; padding: 4px 12px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; color: #777; font-size: 0.78rem; text-decoration: none; }
+    .back-to-top:hover { color: #aaa; border-color: #444; }
+    .back-to-dashboard { display: inline-flex; align-items: center; gap: 5px; margin-bottom: 14px; padding: 5px 14px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; color: #888; font-size: 0.82rem; text-decoration: none; }
+    .back-to-dashboard:hover { color: #ccc; border-color: #555; }
+    .port-summary { display: none; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .port-summary.unlocked { display: flex; }
+    .qty-cell { color: #555; font-style: italic; }
+    .qty-cell.unlocked { color: #c8c8c8; font-style: normal; }
+    .alloc-cell { color: #555; font-style: italic; }
+    .alloc-cell.unlocked { color: #888; font-style: normal; font-size: 0.85rem; }
+    .lock-inline { background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #555; padding: 0 4px; line-height: 1; vertical-align: middle; }
+    .lock-inline:hover { color: #aaa; }
+    .lock-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .lock-modal-overlay.active { display: flex; }
+    .lock-box { background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 32px; max-width: 360px; width: 90%; }
+    .lock-box h2 { color: #e8e8e8; margin-bottom: 16px; text-align: center; font-size: 1.1rem; }
+    .lock-box input { width: 100%; padding: 10px 12px; background: #0e0e0e; border: 1px solid #2a2a2a; border-radius: 4px; color: #d0d0d0; font-size: 1rem; margin-bottom: 16px; }
+    .lock-box button { width: 100%; padding: 10px 12px; background: #7cb9f0; color: #000; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+    .lock-box button:hover { background: #99ccff; }
+    .lock-error { color: #ff6b6b; font-size: 0.9rem; margin-top: -12px; margin-bottom: 12px; min-height: 20px; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #1e1e1e; color: #555; font-size: 0.8rem; text-align: center; }
+  </style>
+</head>
+<body>
+<header>
+  <a href="../../index.html" class="back-to-dashboard">&#8592; Dashboard</a>
+  <h1>Stock Analysis Report</h1>
+  <div class="meta">
+    <span>Date: 2026-04-30</span>
+    <span>Time: 22:00</span>
+    <span>Timeframe: 1D</span>
+    <span>Tickers: AMD, AMZN, BE, CAKE, CEG, DGRO, GLD, GOOG, HIMS, IREN, LLY, MU, NVDA, RGTI, SLV, SOFI, STX, TSLA, VEA, VRT, VWO, VXUS</span>
+  </div>
+  <p class="note">Analysis uses oscillators, Buy/Sell signal dots, and trendlines. Horizontal price lines and colored zones are excluded. Not financial advice.</p>
+</header>
+
+<!-- Per stock: (comment must immediately precede the section tag — used to generate the id) -->
+
+<div class="lock-modal-overlay" id="lockOverlay">
+  <div class="lock-box">
+    <h2>&#x1F512; Portfolio Access</h2>
+    <div class="lock-error" id="lockError"></div>
+    <input type="password" id="lockPassword" placeholder="Enter password" />
+    <button onclick="unlockPortfolio()">Unlock</button>
+  </div>
+</div>
+<section class="portfolio-assessment">
+  <h2>Portfolio Assessment <button class="lock-inline" id="lockToggle" title="Unlock Qty" onclick="openLockModal()">&#x1F512;</button></h2>
+  <div class="port-summary">
+    <div class="port-stat"><span class="stat-label">Balance</span><span class="stat-value">$392,878</span></div>
+    <div class="port-stat"><span class="stat-label">Cash</span><span class="stat-value">$210,810</span></div>
+    <div class="port-stat"><span class="stat-label">Cash %</span><span class="stat-value">0.0%</span></div>
+    <div class="port-stat"><span class="stat-label">Invested</span><span class="stat-value">$182,068</span></div>
+    <div class="port-stat"><span class="stat-label">Positions</span><span class="stat-value">22</span></div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Ticker</th><th>Qty</th><th>% Alloc</th><th>Chart Rating</th><th>Entry Zone</th><th>Action</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMD">AMD</a></td>
+        <td class="qty-cell" data-qty="40.0">***</td>
+        <td class="alloc-cell" data-alloc="3.6%">***</td>
+        <td><span class="tag tag-watch">NEAR ZONE</span></td>
+        <td class="entry-zone">$200–250</td>
+        <td class="rec-add">Given the current overbought conditions and the stock's significant run-up, it is advisable to hold the current position. Consider trimming the position by 25% (~10.0 shares) if the price continues to extend beyond the current trendline, or wait for a pullback to a more favorable entry zone before considering adding more.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-BE">BE</a></td>
+        <td class="qty-cell" data-qty="15.0">***</td>
+        <td class="alloc-cell" data-alloc="1.1%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$200–220</td>
+        <td class="rec-reduce">Given the current 1.1% allocation and the extreme overbought conditions, recommend trimming the position by 50% (~7.5 shares) to lock in profits while holding the remainder to capture potential further momentum.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-AMZN">AMZN</a></td>
+        <td class="qty-cell" data-qty="0.0">***</td>
+        <td class="alloc-cell" data-alloc="0.0%">***</td>
+        <td><span class="tag tag-risky">HIGH RISK</span></td>
+        <td class="entry-zone">$230–245</td>
+        <td class="rec-reduce">Maintain 0% allocation and wait for a pullback; do not initiate a position at current resistance levels.</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-CAKE">CAKE</a></td>
+        <td class="qty-cell" data-qty="0.0">***</td>
+        <td class="alloc-cell" data-alloc="0.0%">***</td>
+        <td><span class="tag tag-avoid">NOT YET</span></td>
+        <td class="entry-zone">$56.00–58.00</td>
+        <td class="rec-exit">Maintain 0.0% allocation for now. Do not open a position at current levels due to overbought conditions and the active sell signal. Look to initiate a starter position (1-2%, ~62.5-125.0 shares) only if the price pulls back into the $56-$58 entry zone.</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-CEG">CEG</a></td>
+        <td class="qty-cell" data-qty="12.0">***</td>
+        <td class="alloc-cell" data-alloc="1.0%">***</td>
+        <td><span class="tag tag-wait">WAIT</span></td>
+        <td class="entry-zone">$285–300</td>
+        <td class="rec-hold">Hold the current 1.0% position (12.0 shares). Do not add at current resistance. Wait for a pullback to the $285-$300 entry zone to add a second starter position of 1% (~12.6 shares) to bring the total allocation to 2%.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-DGRO">DGRO</a></td>
+        <td class="qty-cell" data-qty="97.0">***</td>
+        <td class="alloc-cell" data-alloc="1.8%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GLD">GLD</a></td>
+        <td class="qty-cell" data-qty="25.0">***</td>
+        <td class="alloc-cell" data-alloc="2.7%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SLV">SLV</a></td>
+        <td class="qty-cell" data-qty="150.0">***</td>
+        <td class="alloc-cell" data-alloc="2.5%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VEA">VEA</a></td>
+        <td class="qty-cell" data-qty="148.0">***</td>
+        <td class="alloc-cell" data-alloc="2.6%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VWO">VWO</a></td>
+        <td class="qty-cell" data-qty="700.0">***</td>
+        <td class="alloc-cell" data-alloc="10.5%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VXUS">VXUS</a></td>
+        <td class="qty-cell" data-qty="150.0">***</td>
+        <td class="alloc-cell" data-alloc="3.2%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-GOOG">GOOG</a></td>
+        <td class="qty-cell" data-qty="50.0">***</td>
+        <td class="alloc-cell" data-alloc="4.9%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-HIMS">HIMS</a></td>
+        <td class="qty-cell" data-qty="150.0">***</td>
+        <td class="alloc-cell" data-alloc="1.0%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-IREN">IREN</a></td>
+        <td class="qty-cell" data-qty="100.0">***</td>
+        <td class="alloc-cell" data-alloc="1.2%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-LLY">LLY</a></td>
+        <td class="qty-cell" data-qty="5.0">***</td>
+        <td class="alloc-cell" data-alloc="1.2%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-NVDA">NVDA</a></td>
+        <td class="qty-cell" data-qty="25.0">***</td>
+        <td class="alloc-cell" data-alloc="1.3%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-SOFI">SOFI</a></td>
+        <td class="qty-cell" data-qty="450.0">***</td>
+        <td class="alloc-cell" data-alloc="1.8%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-STX">STX</a></td>
+        <td class="qty-cell" data-qty="18.0">***</td>
+        <td class="alloc-cell" data-alloc="3.1%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-TSLA">TSLA</a></td>
+        <td class="qty-cell" data-qty="30.0">***</td>
+        <td class="alloc-cell" data-alloc="2.9%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-MU">MU</a></td>
+        <td class="qty-cell" data-qty="0.0">***</td>
+        <td class="alloc-cell" data-alloc="0.0%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-RGTI">RGTI</a></td>
+        <td class="qty-cell" data-qty="0.0">***</td>
+        <td class="alloc-cell" data-alloc="0.0%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td>Watchlist — no position held</td>
+      </tr>
+      <tr>
+        <td><a class="ticker-link" href="#section-VRT">VRT</a></td>
+        <td class="qty-cell" data-qty="0.0">***</td>
+        <td class="alloc-cell" data-alloc="0.0%">***</td>
+        <td><span class="tag tag-wait">NO DATA</span></td>
+        <td class="entry-zone">N/A</td>
+        <td class="rec-hold">Retry needed</td>
+        <td>Watchlist — no position held</td>
+      </tr></tbody>
+  </table>
+  <div class="port-notes">
+    <h3>Key Risks</h3>
+    <ul></ul>
+    <h3>Action Items</h3>
+    <ul></ul>
+  </div>
+</section>
+<hr />
+<section id="section-AMD">
+  <h2>
+    <span class="ticker">AMD</span>
+    <span class="company">Advanced Micro Devices, Inc. (~354.49)</span>
+    <span class="tag tag-watch">NEAR ZONE</span>
+  </h2>
+  <img class="chart-img" src="AMD_1D_20260430_2146_annotated.png" alt="AMD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $354.49 | <strong>Entry Zone:</strong> <span class="entry-zone">$200–250</span></p>
+  <h3>Technicals</h3>
+  <ul><li>The stock is currently trading above the upper diagonal trendline, indicating a strong bullish trend.</li><li>The RSI oscillator shows both lines are in the overbought territory (above 70), suggesting a potential pullback.</li><li>There are multiple 'Buy' signals visible on the chart, reinforcing the bullish sentiment.</li><li>The overall trend structure shows higher highs and higher lows, characteristic of an uptrend.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>The stock is currently trading above the upper diagonal trendline, indicating a strong bullish trend.</li><li>The RSI oscillator shows both lines are in the overbought territory (above 70), suggesting a potential pullback.</li><li>There are multiple 'Buy' signals visible on the chart, reinforcing the bullish sentiment.</li><li>The overall trend structure shows higher highs and higher lows, characteristic of an uptrend.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> The stock has experienced a significant run-up, and the current price of ~$354.49 is near the upper bounds of its recent trading range. A pullback to the 200-250 range would offer a more attractive entry point.</li>
+      <li><strong>Risk:</strong> The RSI being in overbought territory indicates a short-term risk of a price correction. The stock's rapid ascent also increases the potential for a sharper decline if market sentiment shifts.</li>
+      <li><strong>Action:</strong> <span class="action-watch">Given the current overbought conditions and the stock's significant run-up, it is advisable to hold the current position. Consider trimming the position by 25% (~10.0 shares) if the price continues to extend beyond the current trendline, or wait for a pullback to a more favorable entry zone before considering adding more.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-AMZN">
+  <h2>
+    <span class="ticker">AMZN</span>
+    <span class="company">Amazon.com, Inc. (~265.06)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="AMZN_1D_20260430_2146_annotated.png" alt="AMZN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $265.06 | <strong>Entry Zone:</strong> <span class="entry-zone">$230–245</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently testing the upper boundary of a long-term ascending channel, indicating potential overextension.</li><li>RSI is in overbought territory (above 70), suggesting a high probability of a near-term pullback or consolidation.</li><li>The stock has experienced a sharp vertical move from the lower trendline support, leaving it extended from moving averages.</li><li>Buy/Sell signals have been mixed, with the recent price action showing a strong momentum push that is now hitting resistance.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Price is currently testing the upper boundary of a long-term ascending channel, indicating potential overextension.</li><li>RSI is in overbought territory (above 70), suggesting a high probability of a near-term pullback or consolidation.</li><li>The stock has experienced a sharp vertical move from the lower trendline support, leaving it extended from moving averages.</li><li>Buy/Sell signals have been mixed, with the recent price action showing a strong momentum push that is now hitting resistance.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a pullback toward the 230-245 range or a retest of the breakout level to improve the risk-reward ratio.</li>
+      <li><strong>Risk:</strong> High risk of a mean-reversion trade as the price is hitting the upper channel resistance while RSI is overbought.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Maintain 0% allocation and wait for a pullback; do not initiate a position at current resistance levels.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-BE">
+  <h2>
+    <span class="ticker">BE</span>
+    <span class="company">Bloom Energy Corporation (~283.36)</span>
+    <span class="tag tag-risky">HIGH RISK</span>
+  </h2>
+  <img class="chart-img" src="BE_1D_20260430_2146_annotated.png" alt="BE chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $283.36 | <strong>Entry Zone:</strong> <span class="entry-zone">$200–220</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price has gone parabolic, breaking significantly above the upper boundary of the long-term ascending diagonal channel.</li><li>RSI is currently overbought at 73.88, suggesting the move is overextended in the short term.</li><li>The stock is trading far above its previous 'Buy' signal near $140, indicating a high risk of mean reversion.</li><li>Trend structure is extremely vertical, which typically precedes a sharp correction or consolidation period.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Price has gone parabolic, breaking significantly above the upper boundary of the long-term ascending diagonal channel.</li><li>RSI is currently overbought at 73.88, suggesting the move is overextended in the short term.</li><li>The stock is trading far above its previous 'Buy' signal near $140, indicating a high risk of mean reversion.</li><li>Trend structure is extremely vertical, which typically precedes a sharp correction or consolidation period.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retest of the upper diagonal trendline near $210 or a significant RSI cooling period.</li>
+      <li><strong>Risk:</strong> Extreme downside risk due to the parabolic nature of the current move; high probability of a sharp pullback to the channel support.</li>
+      <li><strong>Action:</strong> <span class="action-risky">Given the current 1.1% allocation and the extreme overbought conditions, recommend trimming the position by 50% (~7.5 shares) to lock in profits while holding the remainder to capture potential further momentum.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-CAKE">
+  <h2>
+    <span class="ticker">CAKE</span>
+    <span class="company">The Cheesecake Factory Incorporated (~62.87)</span>
+    <span class="tag tag-avoid">NOT YET</span>
+  </h2>
+  <img class="chart-img" src="CAKE_1D_20260430_2146_annotated.png" alt="CAKE chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $62.87 | <strong>Entry Zone:</strong> <span class="entry-zone">$56.00–58.00</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Price is currently testing a major resistance zone near the $64-$66 range.</li><li>A 'Sell' signal has recently appeared on the daily chart at current price levels.</li><li>The RSI/Oscillator is in overbought territory (above 70), indicating a potential short-term peak.</li><li>Price is significantly extended above the primary long-term diagonal support trendline.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Price is currently testing a major resistance zone near the $64-$66 range.</li><li>A 'Sell' signal has recently appeared on the daily chart at current price levels.</li><li>The RSI/Oscillator is in overbought territory (above 70), indicating a potential short-term peak.</li><li>Price is significantly extended above the primary long-term diagonal support trendline.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Wait for a retracement to the $56-$58 support level or a successful retest of the long-term trendline.</li>
+      <li><strong>Risk:</strong> High risk of entering at a local top; potential for a 10% correction to find meaningful support.</li>
+      <li><strong>Action:</strong> <span class="action-avoid">Maintain 0.0% allocation for now. Do not open a position at current levels due to overbought conditions and the active sell signal. Look to initiate a starter position (1-2%, ~62.5-125.0 shares) only if the price pulls back into the $56-$58 entry zone.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-CEG">
+  <h2>
+    <span class="ticker">CEG</span>
+    <span class="company">Constellation Energy Corporation (~313.00)</span>
+    <span class="tag tag-wait">WAIT</span>
+  </h2>
+  <img class="chart-img" src="CEG_1D_20260430_2146_annotated.png" alt="CEG chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> $313.00 | <strong>Entry Zone:</strong> <span class="entry-zone">$285–300</span></p>
+  <h3>Technicals</h3>
+  <ul><li>RSI purple line has crossed above the orange signal line, indicating increasing bullish momentum.</li><li>Price has successfully broken out of a medium-term diagonal downtrend.</li><li>A recent 'Buy' signal was triggered near the $280 level, followed by a strong recovery toward $313.</li><li>Price is currently approaching a local resistance level near $320.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>RSI purple line has crossed above the orange signal line, indicating increasing bullish momentum.</li><li>Price has successfully broken out of a medium-term diagonal downtrend.</li><li>A recent 'Buy' signal was triggered near the $280 level, followed by a strong recovery toward $313.</li><li>Price is currently approaching a local resistance level near $320.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Look for a pullback to the $290-$300 support zone or a daily close above $320 with volume.</li>
+      <li><strong>Risk:</strong> Potential for a short-term rejection at the $320 resistance level, which could lead to a retest of the $260-$270 support floor.</li>
+      <li><strong>Action:</strong> <span class="action-wait">Hold the current 1.0% position (12.0 shares). Do not add at current resistance. Wait for a pullback to the $285-$300 entry zone to add a second starter position of 1% (~12.6 shares) to bring the total allocation to 2%.</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-DGRO">
+  <h2>
+    <span class="ticker">DGRO</span>
+    <span class="company">DGRO (Analysis Failed) (~73.69)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="DGRO_1D_20260430_2146.png" alt="DGRO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-GLD">
+  <h2>
+    <span class="ticker">GLD</span>
+    <span class="company">GLD (Analysis Failed) (~423.66)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="GLD_1D_20260430_2146.png" alt="GLD chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-GOOG">
+  <h2>
+    <span class="ticker">GOOG</span>
+    <span class="company">GOOG (Analysis Failed) (~381.94)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="GOOG_1D_20260430_2146.png" alt="GOOG chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-HIMS">
+  <h2>
+    <span class="ticker">HIMS</span>
+    <span class="company">HIMS (Analysis Failed) (~27.17)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="HIMS_1D_20260430_2146.png" alt="HIMS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-IREN">
+  <h2>
+    <span class="ticker">IREN</span>
+    <span class="company">IREN (Analysis Failed) (~45.51)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="IREN_1D_20260430_2146.png" alt="IREN chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-LLY">
+  <h2>
+    <span class="ticker">LLY</span>
+    <span class="company">LLY (Analysis Failed) (~934.60)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="LLY_1D_20260430_2146.png" alt="LLY chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-MU">
+  <h2>
+    <span class="ticker">MU</span>
+    <span class="company">MU (Analysis Failed) (~517.16)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="MU_1D_20260430_2146.png" alt="MU chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-NVDA">
+  <h2>
+    <span class="ticker">NVDA</span>
+    <span class="company">NVDA (Analysis Failed) (~199.57)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="NVDA_1D_20260430_2146.png" alt="NVDA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-RGTI">
+  <h2>
+    <span class="ticker">RGTI</span>
+    <span class="company">RGTI (Analysis Failed) (~17.45)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="RGTI_1D_20260430_2146.png" alt="RGTI chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-SLV">
+  <h2>
+    <span class="ticker">SLV</span>
+    <span class="company">SLV (Analysis Failed) (~66.66)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="SLV_1D_20260430_2146.png" alt="SLV chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-SOFI">
+  <h2>
+    <span class="ticker">SOFI</span>
+    <span class="company">SOFI (Analysis Failed) (~16.10)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="SOFI_1D_20260430_2146.png" alt="SOFI chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-STX">
+  <h2>
+    <span class="ticker">STX</span>
+    <span class="company">STX (Analysis Failed) (~673.64)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="STX_1D_20260430_2146.png" alt="STX chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-TSLA">
+  <h2>
+    <span class="ticker">TSLA</span>
+    <span class="company">TSLA (Analysis Failed) (~381.63)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="TSLA_1D_20260430_2146.png" alt="TSLA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-VEA">
+  <h2>
+    <span class="ticker">VEA</span>
+    <span class="company">VEA (Analysis Failed) (~68.80)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="VEA_1D_20260430_2146.png" alt="VEA chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-VRT">
+  <h2>
+    <span class="ticker">VRT</span>
+    <span class="company">VRT (Analysis Failed) (~328.49)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="VRT_1D_20260430_2146.png" alt="VRT chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-VWO">
+  <h2>
+    <span class="ticker">VWO</span>
+    <span class="company">VWO (Analysis Failed) (~58.93)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="VWO_1D_20260430_2146.png" alt="VWO chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<section id="section-VXUS">
+  <h2>
+    <span class="ticker">VXUS</span>
+    <span class="company">VXUS (Analysis Failed) (~83.06)</span>
+    <span class="tag tag-wait">NO DATA</span>
+  </h2>
+  <img class="chart-img" src="VXUS_1D_20260430_2146.png" alt="VXUS chart" />
+  <a class="back-to-top" href="#">&#8663; Top</a>
+  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class="entry-zone">N/A</span></p>
+  <h3>Technicals</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <h3>News &amp; Financials</h3>
+  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>
+  <div class="assessment">
+    <h3>Assessment</h3>
+    <ul>
+      <li><strong>Buy level:</strong> Rate limited - retry later</li>
+      <li><strong>Risk:</strong> Rate limited - retry later</li>
+      <li><strong>Action:</strong> <span class="action-watch">Rate limited - retry later</span></li>
+    </ul>
+  </div>
+</section>
+<hr />
+
+
+<footer>Stock Analysis Report &mdash; [Date] &mdash; [Time] &mdash; AI-generated. Not financial advice.</footer>
+<script>
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  function revealQty() {
+    document.querySelector('.port-summary').classList.add('unlocked');
+    document.querySelectorAll('.qty-cell').forEach(td => {
+      td.textContent = td.dataset.qty;
+      td.classList.add('unlocked');
+    });
+    document.querySelectorAll('.alloc-cell').forEach(td => {
+      td.textContent = td.dataset.alloc;
+      td.classList.add('unlocked');
+    });
+    const btn = document.getElementById('lockToggle');
+    btn.innerHTML = '&#x1F513;';
+    btn.title = 'Lock Qty';
+    btn.onclick = lockQty;
+  }
+  function lockQty() {
+    document.querySelector('.port-summary').classList.remove('unlocked');
+    document.querySelectorAll('.qty-cell').forEach(td => {
+      td.textContent = '***';
+      td.classList.remove('unlocked');
+    });
+    document.querySelectorAll('.alloc-cell').forEach(td => {
+      td.textContent = '***';
+      td.classList.remove('unlocked');
+    });
+    sessionStorage.removeItem('portfolioAuth');
+    const btn = document.getElementById('lockToggle');
+    btn.innerHTML = '&#x1F512;';
+    btn.title = 'Unlock Qty';
+    btn.onclick = openLockModal;
+  }
+  function openLockModal() {
+    document.getElementById('lockOverlay').classList.add('active');
+    document.getElementById('lockPassword').value = '';
+    document.getElementById('lockError').textContent = '';
+    document.getElementById('lockPassword').focus();
+  }
+  function closeLockModal() {
+    document.getElementById('lockOverlay').classList.remove('active');
+  }
+  async function unlockPortfolio() {
+    const pwd = document.getElementById('lockPassword').value;
+    const hash = await sha256(pwd);
+    if (hash === '2597632105456d5d4057bdd50afb979bb770f730ea4532796680ace80e302d04') {
+      sessionStorage.setItem('portfolioAuth', 'true');
+      closeLockModal();
+      revealQty();
+    } else {
+      document.getElementById('lockError').textContent = 'Incorrect password';
+      document.getElementById('lockPassword').value = '';
+      document.getElementById('lockPassword').focus();
+    }
+  }
+  document.getElementById('lockPassword').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') unlockPortfolio();
+  });
+  document.getElementById('lockOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lockOverlay')) closeLockModal();
+  });
+  if (sessionStorage.getItem('portfolioAuth')) {
+    revealQty();
+  }
+</script>
+</body>
+</html>

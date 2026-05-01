@@ -1,0 +1,65 @@
+[
+  {
+    "ticker": "AMD",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-AMD\">\n  <h2>\n    <span class=\"ticker\">AMD</span>\n    <span class=\"company\">AMD (Analysis Failed) (~354.49)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"AMD_1D_20260430_2105.png\" alt=\"AMD chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 354.49,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "DGRO",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-DGRO\">\n  <h2>\n    <span class=\"ticker\">DGRO</span>\n    <span class=\"company\">DGRO (Analysis Failed) (~73.69)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"DGRO_1D_20260430_2105.png\" alt=\"DGRO chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 73.69,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "GLD",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-GLD\">\n  <h2>\n    <span class=\"ticker\">GLD</span>\n    <span class=\"company\">GLD (Analysis Failed) (~423.66)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"GLD_1D_20260430_2105.png\" alt=\"GLD chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 423.66,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "SLV",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-SLV\">\n  <h2>\n    <span class=\"ticker\">SLV</span>\n    <span class=\"company\">SLV (Analysis Failed) (~66.66)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"SLV_1D_20260430_2105.png\" alt=\"SLV chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 66.66,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "VEA",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-VEA\">\n  <h2>\n    <span class=\"ticker\">VEA</span>\n    <span class=\"company\">VEA (Analysis Failed) (~68.80)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"VEA_1D_20260430_2105.png\" alt=\"VEA chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 68.8,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "VWO",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-VWO\">\n  <h2>\n    <span class=\"ticker\">VWO</span>\n    <span class=\"company\">VWO (Analysis Failed) (~58.93)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"VWO_1D_20260430_2105.png\" alt=\"VWO chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 58.93,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "VXUS",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-VXUS\">\n  <h2>\n    <span class=\"ticker\">VXUS</span>\n    <span class=\"company\">VXUS (Analysis Failed) (~83.06)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"VXUS_1D_20260430_2105.png\" alt=\"VXUS chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 83.06,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  }
+]

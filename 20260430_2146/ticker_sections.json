@@ -1,0 +1,200 @@
+[
+  {
+    "ticker": "AMD",
+    "html": "\n<section id=\"section-AMD\">\n  <h2>\n    <span class=\"ticker\">AMD</span>\n    <span class=\"company\">Advanced Micro Devices, Inc. (~354.49)</span>\n    <span class=\"tag tag-watch\">NEAR ZONE</span>\n  </h2>\n  <img class=\"chart-img\" src=\"AMD_1D_20260430_2146_annotated.png\" alt=\"AMD chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> $354.49 | <strong>Entry Zone:</strong> <span class=\"entry-zone\">$200–250</span></p>\n  <h3>Technicals</h3>\n  <ul><li>The stock is currently trading above the upper diagonal trendline, indicating a strong bullish trend.</li><li>The RSI oscillator shows both lines are in the overbought territory (above 70), suggesting a potential pullback.</li><li>There are multiple 'Buy' signals visible on the chart, reinforcing the bullish sentiment.</li><li>The overall trend structure shows higher highs and higher lows, characteristic of an uptrend.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>The stock is currently trading above the upper diagonal trendline, indicating a strong bullish trend.</li><li>The RSI oscillator shows both lines are in the overbought territory (above 70), suggesting a potential pullback.</li><li>There are multiple 'Buy' signals visible on the chart, reinforcing the bullish sentiment.</li><li>The overall trend structure shows higher highs and higher lows, characteristic of an uptrend.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> The stock has experienced a significant run-up, and the current price of ~$354.49 is near the upper bounds of its recent trading range. A pullback to the 200-250 range would offer a more attractive entry point.</li>\n      <li><strong>Risk:</strong> The RSI being in overbought territory indicates a short-term risk of a price correction. The stock's rapid ascent also increases the potential for a sharper decline if market sentiment shifts.</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Given the current overbought conditions and the stock's significant run-up, it is advisable to hold the current position. Consider trimming the position by 25% (~10.0 shares) if the price continues to extend beyond the current trendline, or wait for a pullback to a more favorable entry zone before considering adding more.</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "tag": "NEAR ZONE",
+    "ez": "$200–250",
+    "action": "Given the current overbought conditions and the stock's significant run-up, it is advisable to hold the current position. Consider trimming the position by 25% (~10.0 shares) if the price continues to extend beyond the current trendline, or wait for a pullback to a more favorable entry zone before considering adding more.",
+    "price": 354.49,
+    "sort": 1
+  },
+  {
+    "ticker": "AMZN",
+    "html": "\n<section id=\"section-AMZN\">\n  <h2>\n    <span class=\"ticker\">AMZN</span>\n    <span class=\"company\">Amazon.com, Inc. (~265.06)</span>\n    <span class=\"tag tag-risky\">HIGH RISK</span>\n  </h2>\n  <img class=\"chart-img\" src=\"AMZN_1D_20260430_2146_annotated.png\" alt=\"AMZN chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> $265.06 | <strong>Entry Zone:</strong> <span class=\"entry-zone\">$230–245</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Price is currently testing the upper boundary of a long-term ascending channel, indicating potential overextension.</li><li>RSI is in overbought territory (above 70), suggesting a high probability of a near-term pullback or consolidation.</li><li>The stock has experienced a sharp vertical move from the lower trendline support, leaving it extended from moving averages.</li><li>Buy/Sell signals have been mixed, with the recent price action showing a strong momentum push that is now hitting resistance.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Price is currently testing the upper boundary of a long-term ascending channel, indicating potential overextension.</li><li>RSI is in overbought territory (above 70), suggesting a high probability of a near-term pullback or consolidation.</li><li>The stock has experienced a sharp vertical move from the lower trendline support, leaving it extended from moving averages.</li><li>Buy/Sell signals have been mixed, with the recent price action showing a strong momentum push that is now hitting resistance.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Wait for a pullback toward the 230-245 range or a retest of the breakout level to improve the risk-reward ratio.</li>\n      <li><strong>Risk:</strong> High risk of a mean-reversion trade as the price is hitting the upper channel resistance while RSI is overbought.</li>\n      <li><strong>Action:</strong> <span class=\"action-risky\">Maintain 0% allocation and wait for a pullback; do not initiate a position at current resistance levels.</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "tag": "HIGH RISK",
+    "ez": "$230–245",
+    "action": "Maintain 0% allocation and wait for a pullback; do not initiate a position at current resistance levels.",
+    "price": 265.06,
+    "sort": 2
+  },
+  {
+    "ticker": "BE",
+    "html": "\n<section id=\"section-BE\">\n  <h2>\n    <span class=\"ticker\">BE</span>\n    <span class=\"company\">Bloom Energy Corporation (~283.36)</span>\n    <span class=\"tag tag-risky\">HIGH RISK</span>\n  </h2>\n  <img class=\"chart-img\" src=\"BE_1D_20260430_2146_annotated.png\" alt=\"BE chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> $283.36 | <strong>Entry Zone:</strong> <span class=\"entry-zone\">$200–220</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Price has gone parabolic, breaking significantly above the upper boundary of the long-term ascending diagonal channel.</li><li>RSI is currently overbought at 73.88, suggesting the move is overextended in the short term.</li><li>The stock is trading far above its previous 'Buy' signal near $140, indicating a high risk of mean reversion.</li><li>Trend structure is extremely vertical, which typically precedes a sharp correction or consolidation period.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Price has gone parabolic, breaking significantly above the upper boundary of the long-term ascending diagonal channel.</li><li>RSI is currently overbought at 73.88, suggesting the move is overextended in the short term.</li><li>The stock is trading far above its previous 'Buy' signal near $140, indicating a high risk of mean reversion.</li><li>Trend structure is extremely vertical, which typically precedes a sharp correction or consolidation period.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Wait for a retest of the upper diagonal trendline near $210 or a significant RSI cooling period.</li>\n      <li><strong>Risk:</strong> Extreme downside risk due to the parabolic nature of the current move; high probability of a sharp pullback to the channel support.</li>\n      <li><strong>Action:</strong> <span class=\"action-risky\">Given the current 1.1% allocation and the extreme overbought conditions, recommend trimming the position by 50% (~7.5 shares) to lock in profits while holding the remainder to capture potential further momentum.</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "tag": "HIGH RISK",
+    "ez": "$200–220",
+    "action": "Given the current 1.1% allocation and the extreme overbought conditions, recommend trimming the position by 50% (~7.5 shares) to lock in profits while holding the remainder to capture potential further momentum.",
+    "price": 283.36,
+    "sort": 2
+  },
+  {
+    "ticker": "CAKE",
+    "html": "\n<section id=\"section-CAKE\">\n  <h2>\n    <span class=\"ticker\">CAKE</span>\n    <span class=\"company\">The Cheesecake Factory Incorporated (~62.87)</span>\n    <span class=\"tag tag-avoid\">NOT YET</span>\n  </h2>\n  <img class=\"chart-img\" src=\"CAKE_1D_20260430_2146_annotated.png\" alt=\"CAKE chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> $62.87 | <strong>Entry Zone:</strong> <span class=\"entry-zone\">$56.00–58.00</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Price is currently testing a major resistance zone near the $64-$66 range.</li><li>A 'Sell' signal has recently appeared on the daily chart at current price levels.</li><li>The RSI/Oscillator is in overbought territory (above 70), indicating a potential short-term peak.</li><li>Price is significantly extended above the primary long-term diagonal support trendline.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Price is currently testing a major resistance zone near the $64-$66 range.</li><li>A 'Sell' signal has recently appeared on the daily chart at current price levels.</li><li>The RSI/Oscillator is in overbought territory (above 70), indicating a potential short-term peak.</li><li>Price is significantly extended above the primary long-term diagonal support trendline.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Wait for a retracement to the $56-$58 support level or a successful retest of the long-term trendline.</li>\n      <li><strong>Risk:</strong> High risk of entering at a local top; potential for a 10% correction to find meaningful support.</li>\n      <li><strong>Action:</strong> <span class=\"action-avoid\">Maintain 0.0% allocation for now. Do not open a position at current levels due to overbought conditions and the active sell signal. Look to initiate a starter position (1-2%, ~62.5-125.0 shares) only if the price pulls back into the $56-$58 entry zone.</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "tag": "NOT YET",
+    "ez": "$56.00–58.00",
+    "action": "Maintain 0.0% allocation for now. Do not open a position at current levels due to overbought conditions and the active sell signal. Look to initiate a starter position (1-2%, ~62.5-125.0 shares) only if the price pulls back into the $56-$58 entry zone.",
+    "price": 62.87,
+    "sort": 3
+  },
+  {
+    "ticker": "CEG",
+    "html": "\n<section id=\"section-CEG\">\n  <h2>\n    <span class=\"ticker\">CEG</span>\n    <span class=\"company\">Constellation Energy Corporation (~313.00)</span>\n    <span class=\"tag tag-wait\">WAIT</span>\n  </h2>\n  <img class=\"chart-img\" src=\"CEG_1D_20260430_2146_annotated.png\" alt=\"CEG chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> $313.00 | <strong>Entry Zone:</strong> <span class=\"entry-zone\">$285–300</span></p>\n  <h3>Technicals</h3>\n  <ul><li>RSI purple line has crossed above the orange signal line, indicating increasing bullish momentum.</li><li>Price has successfully broken out of a medium-term diagonal downtrend.</li><li>A recent 'Buy' signal was triggered near the $280 level, followed by a strong recovery toward $313.</li><li>Price is currently approaching a local resistance level near $320.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>RSI purple line has crossed above the orange signal line, indicating increasing bullish momentum.</li><li>Price has successfully broken out of a medium-term diagonal downtrend.</li><li>A recent 'Buy' signal was triggered near the $280 level, followed by a strong recovery toward $313.</li><li>Price is currently approaching a local resistance level near $320.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Look for a pullback to the $290-$300 support zone or a daily close above $320 with volume.</li>\n      <li><strong>Risk:</strong> Potential for a short-term rejection at the $320 resistance level, which could lead to a retest of the $260-$270 support floor.</li>\n      <li><strong>Action:</strong> <span class=\"action-wait\">Hold the current 1.0% position (12.0 shares). Do not add at current resistance. Wait for a pullback to the $285-$300 entry zone to add a second starter position of 1% (~12.6 shares) to bring the total allocation to 2%.</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "tag": "WAIT",
+    "ez": "$285–300",
+    "action": "Hold the current 1.0% position (12.0 shares). Do not add at current resistance. Wait for a pullback to the $285-$300 entry zone to add a second starter position of 1% (~12.6 shares) to bring the total allocation to 2%.",
+    "price": 313.0,
+    "sort": 4
+  },
+  {
+    "ticker": "DGRO",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-DGRO\">\n  <h2>\n    <span class=\"ticker\">DGRO</span>\n    <span class=\"company\">DGRO (Analysis Failed) (~73.69)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"DGRO_1D_20260430_2146.png\" alt=\"DGRO chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 73.69,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "GLD",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-GLD\">\n  <h2>\n    <span class=\"ticker\">GLD</span>\n    <span class=\"company\">GLD (Analysis Failed) (~423.66)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"GLD_1D_20260430_2146.png\" alt=\"GLD chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 423.66,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "GOOG",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-GOOG\">\n  <h2>\n    <span class=\"ticker\">GOOG</span>\n    <span class=\"company\">GOOG (Analysis Failed) (~381.94)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"GOOG_1D_20260430_2146.png\" alt=\"GOOG chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 381.94,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "HIMS",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-HIMS\">\n  <h2>\n    <span class=\"ticker\">HIMS</span>\n    <span class=\"company\">HIMS (Analysis Failed) (~27.17)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"HIMS_1D_20260430_2146.png\" alt=\"HIMS chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 27.17,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "IREN",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-IREN\">\n  <h2>\n    <span class=\"ticker\">IREN</span>\n    <span class=\"company\">IREN (Analysis Failed) (~45.51)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"IREN_1D_20260430_2146.png\" alt=\"IREN chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 45.51,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "LLY",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-LLY\">\n  <h2>\n    <span class=\"ticker\">LLY</span>\n    <span class=\"company\">LLY (Analysis Failed) (~934.60)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"LLY_1D_20260430_2146.png\" alt=\"LLY chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 934.6,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "MU",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-MU\">\n  <h2>\n    <span class=\"ticker\">MU</span>\n    <span class=\"company\">MU (Analysis Failed) (~517.16)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"MU_1D_20260430_2146.png\" alt=\"MU chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 517.16,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "NVDA",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-NVDA\">\n  <h2>\n    <span class=\"ticker\">NVDA</span>\n    <span class=\"company\">NVDA (Analysis Failed) (~199.57)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"NVDA_1D_20260430_2146.png\" alt=\"NVDA chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 199.57,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "RGTI",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-RGTI\">\n  <h2>\n    <span class=\"ticker\">RGTI</span>\n    <span class=\"company\">RGTI (Analysis Failed) (~17.45)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"RGTI_1D_20260430_2146.png\" alt=\"RGTI chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 17.45,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "SLV",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-SLV\">\n  <h2>\n    <span class=\"ticker\">SLV</span>\n    <span class=\"company\">SLV (Analysis Failed) (~66.66)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"SLV_1D_20260430_2146.png\" alt=\"SLV chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 66.66,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "SOFI",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-SOFI\">\n  <h2>\n    <span class=\"ticker\">SOFI</span>\n    <span class=\"company\">SOFI (Analysis Failed) (~16.10)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"SOFI_1D_20260430_2146.png\" alt=\"SOFI chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 16.1,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "STX",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-STX\">\n  <h2>\n    <span class=\"ticker\">STX</span>\n    <span class=\"company\">STX (Analysis Failed) (~673.64)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"STX_1D_20260430_2146.png\" alt=\"STX chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 673.64,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "TSLA",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-TSLA\">\n  <h2>\n    <span class=\"ticker\">TSLA</span>\n    <span class=\"company\">TSLA (Analysis Failed) (~381.63)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"TSLA_1D_20260430_2146.png\" alt=\"TSLA chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 381.63,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "VEA",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-VEA\">\n  <h2>\n    <span class=\"ticker\">VEA</span>\n    <span class=\"company\">VEA (Analysis Failed) (~68.80)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"VEA_1D_20260430_2146.png\" alt=\"VEA chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 68.8,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "VRT",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-VRT\">\n  <h2>\n    <span class=\"ticker\">VRT</span>\n    <span class=\"company\">VRT (Analysis Failed) (~328.49)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"VRT_1D_20260430_2146.png\" alt=\"VRT chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 328.49,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "VWO",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-VWO\">\n  <h2>\n    <span class=\"ticker\">VWO</span>\n    <span class=\"company\">VWO (Analysis Failed) (~58.93)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"VWO_1D_20260430_2146.png\" alt=\"VWO chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 58.93,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  },
+  {
+    "ticker": "VXUS",
+    "tag": "NO DATA",
+    "html": "\n<section id=\"section-VXUS\">\n  <h2>\n    <span class=\"ticker\">VXUS</span>\n    <span class=\"company\">VXUS (Analysis Failed) (~83.06)</span>\n    <span class=\"tag tag-wait\">NO DATA</span>\n  </h2>\n  <img class=\"chart-img\" src=\"VXUS_1D_20260430_2146.png\" alt=\"VXUS chart\" />\n  <a class=\"back-to-top\" href=\"#\">&#8663; Top</a>\n  <p><strong>Price:</strong> ~$X | <strong>Entry Zone:</strong> <span class=\"entry-zone\">N/A</span></p>\n  <h3>Technicals</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <h3>News &amp; Financials</h3>\n  <ul><li>Analysis rate limited or failed.</li><li>Please run the script again to retry this ticker.</li></ul>\n  <div class=\"assessment\">\n    <h3>Assessment</h3>\n    <ul>\n      <li><strong>Buy level:</strong> Rate limited - retry later</li>\n      <li><strong>Risk:</strong> Rate limited - retry later</li>\n      <li><strong>Action:</strong> <span class=\"action-watch\">Rate limited - retry later</span></li>\n    </ul>\n  </div>\n</section>\n<hr />\n",
+    "price": 83.06,
+    "ez": "N/A",
+    "action": "Retry needed",
+    "sort": 6
+  }
+]
